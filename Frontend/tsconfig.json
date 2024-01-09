@@ -3,13 +3,17 @@
       "outDir": "./dist/",
      "sourceMap": true,
       "noImplicitAny": true,
-      "module": "commonjs",
+      "module": "esnext",
       "target": "es5",
       "jsx": "react-jsx",
       "allowJs": true,
       "moduleResolution": "node",
       "allowSyntheticDefaultImports" : true,
-      "esModuleInterop" : true
+      "esModuleInterop" : true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      }
     },
     "ts-node": {
         "compilerOptions": {

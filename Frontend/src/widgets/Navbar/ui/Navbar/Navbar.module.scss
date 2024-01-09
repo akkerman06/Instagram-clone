@@ -1,0 +1,15 @@
+.navbar {
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 53px;
+  }
+  
+  .dark{
+    filter: invert(100%);
+  }
+  

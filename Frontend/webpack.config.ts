@@ -1,5 +1,8 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import webpack from 'webpack'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 type BuildMode = 'development' | 'production'
 
@@ -8,7 +11,7 @@ interface BuildEnv {
     port: number
 }
 
-export default (env: any) => {
+export default (env: BuildEnv) => {
     const mode = env.mode || 'development'
     const port = env.port || 3000
     const isDev = mode === 'development' 
@@ -25,7 +28,18 @@ export default (env: any) => {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'public' , 'index.html')
-        })
+        }),
+        new MiniCssExtractPlugin(
+            {
+                filename: 'css/[name].[contenthash:8].css',
+                chunkFilename: 'css/[name].[contenthash:8].css'
+            }
+        ),
+        new webpack.ProgressPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new ReactRefreshWebpackPlugin(),
+        
+        
     ],
     module: {
         rules: [
@@ -37,7 +51,8 @@ export default (env: any) => {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                  "style-loader",
+                    isDev? 'style-loader':  MiniCssExtractPlugin.loader,
+                   
                   {
                     loader: "css-loader",
                     options: {
@@ -50,16 +65,34 @@ export default (env: any) => {
                   "sass-loader",
                 ],
             },
+
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                  {
+                    loader: 'file-loader',
+                  },
+                ],
+            },
+
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
+            },
         ],
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            "@": path.resolve(__dirname, "src"),
+        },
     },
     devtool: isDev ?  "inline-source-map" : undefined,
 
     devServer:  isDev ? {
         port: port,
-        open: true
+        open: true,
+        hot: true
     } : undefined
     };    
 
