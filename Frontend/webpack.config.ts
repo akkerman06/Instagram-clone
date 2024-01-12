@@ -38,6 +38,9 @@ export default (env: BuildEnv) => {
         new webpack.ProgressPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new ReactRefreshWebpackPlugin(),
+        new webpack.DefinePlugin({
+            DEV: JSON.stringify(isDev)
+        })
         
         
     ],
@@ -92,6 +95,7 @@ export default (env: BuildEnv) => {
     devServer:  isDev ? {
         port: port,
         open: true,
+        historyApiFallback: true,
         hot: true
     } : undefined
     };    

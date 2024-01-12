@@ -7,6 +7,8 @@ import { ThemeContext } from '@/app/provider/ThemeProvider/ui/ThemeProvider'
 import { Theme } from '@/shared/consts/Theme'
 import { SwitchButton } from '@/features'
 import { ClassNames } from '@/shared/lib/classNames'
+import { Link } from 'react-router-dom'
+import { LangSwitch } from '@/widgets/LangSwitch/ui/LangSwitch'
 
 export const NavMenu = () => {
 
@@ -18,14 +20,14 @@ export const NavMenu = () => {
       iconType: 'Home'
     },
     {
-      href: '/',
+      href: '/login',
       iconType: 'Messenger'
     },
     {
       iconType: 'NewPosts'
     },
     {
-      href: '/',
+      href: '/register',
       iconType: 'FindPeople'
     },
     {
@@ -40,9 +42,9 @@ export const NavMenu = () => {
           navMenuItems.map((item) => (
             <li key={item.iconType} className={ClassNames(cls.item ,{[cls.dark] : theme === Theme.DARK}, [])}>
               {
-                item.href ? <a href={item.href} className={cls.link}>
+                item.href ? <Link to={item.href} className={cls.link}>
                   <Icon  type={item.iconType} />
-                </a>
+                </Link>
                  : 
                 <Icon  type={item.iconType} />
               }
@@ -51,6 +53,10 @@ export const NavMenu = () => {
         }
         <li className={theme === Theme.DARK && cls.dark}>
           <SwitchButton />
+        </li>
+
+        <li>
+          <LangSwitch />
         </li>
 
         <li>
