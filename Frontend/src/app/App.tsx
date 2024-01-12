@@ -4,7 +4,7 @@ import { Button } from '@/shared/ui'
 
 const App = () => {
   return (
-    <div className='App app_light'>
+    <div className='app'>
         <Navbar/>
         <Button >fffffff</Button>
     </div>
