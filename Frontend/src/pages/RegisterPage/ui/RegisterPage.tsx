@@ -1,8 +1,9 @@
+import { RegisterForm } from '@/features/auth'
 import React from 'react'
 
 const RegisterPage = () => {
   return (
-    <div>RegisterPage</div>
+    <RegisterForm/>
   )
 }
 

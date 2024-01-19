@@ -33,13 +33,13 @@
     font-weight: 700;
   }
   .blue {
-    color: blue;
+    color: var(--blue_500);
   }
   .gray {
-    color: gray;
+    color: var(--text-color);
   }
   .black {
-    color: black;
+    color: var(--inverted-main-color);
   }
   .white {
     color: #fff;

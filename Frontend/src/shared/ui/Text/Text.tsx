@@ -55,7 +55,7 @@ export const Text: FC<TextProps> = (props) => {
     size = 14,
     weight = 400,
     align,
-    color = 'black',
+    color = 'gray',
     tag = 'h1',
   } = props
   const classes = [

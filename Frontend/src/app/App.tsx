@@ -5,16 +5,19 @@ import { LoginLazyPage } from '@/pages/LoginPage/ui/LoginLazyPage'
 import { RegisterLazyPage } from '@/pages/RegisterPage/ui/RegisterLazyPage'
 import { Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Spinner } from '@/shared/ui'
 
 
 const App = () => {
+  const auth = false
+
   return (
     <div className='app'>
       <Suspense fallback =''>
-      <Navbar/>
+      {!auth && <Navbar/>}
 
         <div className='container'>
-          <Suspense fallback={<h1>...Loading</h1>}>
+          <Suspense fallback={<Spinner className='spinner' />}>
             <Routes>
               <Route path='/' element={<HomePage/>} />
               <Route path='/login' element={<LoginLazyPage/>} />

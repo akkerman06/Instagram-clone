@@ -1,8 +1,9 @@
+import { LoginForm } from '@/features/auth'
 import React from 'react'
 
 const LoginPage = () => {
   return (
-    <div>LoginPage</div>
+    <LoginForm />
   )
 }
 
