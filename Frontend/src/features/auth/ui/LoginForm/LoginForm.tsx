@@ -4,13 +4,20 @@ import { VStack } from "@/shared/ui/Stack/VStack"
 import cls from './LoginForm.module.scss'
 import {  LogoSvg } from "@/shared/ui/Logo/Logo"
 import { LoginFormValues, useLoginForm } from "../../model/schema/useLoginForm"
+import { useDispatch } from "react-redux"
 
 export const LoginForm = () => {
   const {register , watch , isValid , errors , handleSubmit, LoginFormNames } = useLoginForm()
 
   const onSubmit = (data:LoginFormValues) => {
     console.log(data)
+    dispatch(onLogin)
   }
+  const onLogin = () => {
+
+  }
+
+  const dispatch = useDispatch()
   return (
     <HStack justify="center">
         <VStack className={cls.auth} gap={12}>

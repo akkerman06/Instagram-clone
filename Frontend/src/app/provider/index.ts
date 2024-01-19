@@ -1,1 +1,2 @@
-// export {ThemeProvider } from './ThemeProvider/ui/ThemeProvider'
+export {ThemeProvider , ThemeContext } from './ThemeProvider/ui/ThemeProvider'
+export {StoreProvider } from './StoreProvider/ui/StoreProvider'
