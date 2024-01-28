@@ -3,7 +3,7 @@ import cls from './Spinner.module.scss'
 import { ClassNames } from '@/shared/lib/classNames'
 
 type sizeType = 'm' | 's' | 'l'
-type variantType = 'primary' | 'default'| 'gray'
+type variantType = 'primary' | 'default'| 'gray' | 'white'
 
 interface SpinnerProps {
   className?: string
@@ -23,7 +23,8 @@ export const Spinner:FC<SpinnerProps> = (props) => {
   const variantClasses: Record<variantType , string> = {
     default: cls.default,
     gray: cls.gray,
-    primary: cls.primary
+    primary: cls.primary,
+    white: cls.white
   }
   const classes = [
     size && sizeClasses[size],

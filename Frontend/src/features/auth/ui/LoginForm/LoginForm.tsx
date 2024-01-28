@@ -4,20 +4,32 @@ import { VStack } from "@/shared/ui/Stack/VStack"
 import cls from './LoginForm.module.scss'
 import {  LogoSvg } from "@/shared/ui/Logo/Logo"
 import { LoginFormValues, useLoginForm } from "../../model/schema/useLoginForm"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch"
+import { loginByEmail } from "../../model/service/loginByEmail"
+import { getAuthError } from "../../model/selectors/getAuthError"
+import { getAuthLoading } from "../../model/selectors/getAuthLoading"
+import { useNavigate } from "react-router-dom"
+
 
 export const LoginForm = () => {
   const {register , watch , isValid , errors , handleSubmit, LoginFormNames } = useLoginForm()
 
-  const onSubmit = (data:LoginFormValues) => {
-    console.log(data)
-    dispatch(onLogin)
-  }
-  const onLogin = () => {
+  const dispatch = useAppDispatch()
 
+  const authError = useSelector(getAuthError)
+  const authLoading = useSelector(getAuthLoading)
+  const navigate = useNavigate()
+
+  const onSubmit = async (data:LoginFormValues) => {
+     const res = await dispatch(loginByEmail(data))
+
+     if(res.meta.requestStatus = 'fulfilled'){
+        navigate('/')
+     }
   }
 
-  const dispatch = useDispatch()
+
   return (
     <HStack justify="center">
         <VStack className={cls.auth} gap={12}>
@@ -26,6 +38,7 @@ export const LoginForm = () => {
 
             <Form onSubmit={handleSubmit(onSubmit)} >
                 <VStack gap={16} align="center">
+                  {authError && <Text color="error">{authError}</Text>}
                     <Input
                       {...register(LoginFormNames.EMAIL)}
                       value={watch(LoginFormNames.EMAIL)}
@@ -41,7 +54,7 @@ export const LoginForm = () => {
                       placeholder="пароль"
                     />
 
-                    <Button max disabled={!isValid}>Войти</Button>
+                    <Button max disabled={!isValid && authLoading} loading={authLoading}>Войти</Button>
 
                     <Text>Или</Text>
                     <VStack align="center" gap={12}>

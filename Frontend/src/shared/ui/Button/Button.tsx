@@ -1,6 +1,7 @@
 import React, { ButtonHTMLAttributes, FC, ReactNode } from 'react'
 import cls from './Button.module.scss'
 import { ClassNames, Mods } from '@/shared/lib/classNames'
+import { Spinner } from '../Spinner/Spinner'
 type ButtonVariant = 'default' | 'outline'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -43,7 +44,7 @@ export const Button:FC<ButtonProps> = (props) => {
   return (
     <button   className={ClassNames(cls.btn , mods , classes)}>
         {addonLeft}
-        {loading ? <div>Spinner...</div> : children}
+        {loading ? <Spinner variant='white' size='m'/> : children}
         {addonRight}
     </button>
   )

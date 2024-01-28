@@ -4,14 +4,32 @@ import { VStack } from "@/shared/ui/Stack/VStack"
 import cls from '../LoginForm/LoginForm.module.scss'
 import { LogoSvg } from "@/shared/ui/Logo/Logo"
 import { RegisterFormValues, useRegisterForm } from "../../model/schema/useRegisterForm"
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch"
+import { registerByEmail } from "../../model/service/registerByEmail"
+import { useSelector } from "react-redux"
+import { getAuthError } from "../../model/selectors/getAuthError"
+import { useNavigate } from "react-router-dom"
+import { getAuthLoading } from "../../model/selectors/getAuthLoading"
 
 export const RegisterForm = () => {
 
     const {register , watch , handleSubmit , errors , isValid , RegisterFormNames , } = useRegisterForm()
 
-    const onSubmit = (data: RegisterFormValues) => {
-        delete data.cf_password
-        console.log(data)
+    const navigate = useNavigate()
+
+    useRegisterForm()
+
+    const dispatch = useAppDispatch()
+
+    const authError = useSelector(getAuthError)
+    const authLoading = useSelector(getAuthLoading)
+
+    const onSubmit = async (data: RegisterFormValues) => {
+        const res = await dispatch(registerByEmail(data))
+        if(res.meta.requestStatus === 'fulfilled'){
+            navigate('/login')
+
+        }
     }
     return (
         <HStack justify="center">
@@ -23,6 +41,8 @@ export const RegisterForm = () => {
                     <Text align="center">
                         Зарегистрируйтесь, чтобы смотреть фото и видео ваших друзей.
                     </Text>
+
+                    
                 </VStack>
 
                 
@@ -68,7 +88,8 @@ export const RegisterForm = () => {
                             value={watch(RegisterFormNames.CF_PASSWORD)}
                             error={errors?.cf_password?.message}
                             placeholder="Повторить пароль"
-                         />                                                                                                      
+                         />        
+                         {authError && <Text color="error">{authError}</Text>}                                                                                              
 
                         <Text size={12} color="gray" align="center">
                             Регистрируясь, вы принимаете Условия. Прочитайте Политика
@@ -76,9 +97,9 @@ export const RegisterForm = () => {
                             передаем ваши данные. Также просмотрите Политику в отношении
                             файлов cookie, чтобы узнать, как мы используем файлы cookie и
                             подобные технологии.
-                        </Text>                       
+                        </Text>   
 
-                        <Button disabled={!isValid} max>Регистрация</Button>
+                        <Button disabled={!isValid && authLoading} loading={authLoading} max>Регистрация</Button>
                     </VStack>
                 </Form>
               </VStack>

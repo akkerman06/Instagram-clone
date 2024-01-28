@@ -1,0 +1,5 @@
+export {userActions , userReducer} from './model/slice/userSlice'
+export type  {UserState} from './model/types/user'
+export {getAuthToken} from './model/selectors/getAuthToken'
+export {getAuthData} from './model/selectors/getAuthData'
+export {getFetchAuthUser} from './model/service/getFetchAuthUser'
