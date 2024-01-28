@@ -1,13 +1,7 @@
-import { Navbar } from '../widgets'
-import { Route, Routes } from 'react-router-dom'
-import HomePage from '@/pages/HomePage/ui/HomePage'
-import { LoginLazyPage } from '@/pages/LoginPage/ui/LoginLazyPage'
-import { RegisterLazyPage } from '@/pages/RegisterPage/ui/RegisterLazyPage'
+import { Navbar, PageLoader } from '../widgets'
 import { Suspense, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Spinner } from '@/shared/ui'
 import { useSelector } from 'react-redux'
-import { getAuthData, getAuthToken } from '@/entities/User'
+import {  getAuthToken } from '@/entities/User'
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch'
 import { getFetchAuthUser } from '@/entities/User/model/service/getFetchAuthUser'
 import { LOCAL_STORAGE_TOKEN } from '@/shared/consts/LocalStorage'
@@ -30,7 +24,7 @@ const App = () => {
     <div className='app'>
       <Suspense fallback =''>
       {isLogged && <Navbar/>}
-
+        <PageLoader/>
         <div className='container'>
           <RouteProvider/>
         </div>

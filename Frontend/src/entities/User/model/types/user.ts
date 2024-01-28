@@ -22,4 +22,5 @@ export interface User {
 export interface UserState {
     user: User
     token: string
+    loading: boolean
 }
