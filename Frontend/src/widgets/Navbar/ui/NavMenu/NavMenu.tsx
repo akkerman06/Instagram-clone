@@ -9,10 +9,20 @@ import { SwitchButton } from '@/features'
 import { ClassNames } from '@/shared/lib/classNames'
 import { Link } from 'react-router-dom'
 import { LangSwitch } from '@/widgets/LangSwitch/ui/LangSwitch'
+import { DropDown } from '@/shared/ui/Popups/DropDown/DropDown'
+import { MenuProps } from 'antd'
+import { AppLink, Text } from '@/shared/ui'
+import { useSelector } from 'react-redux'
+import { getAuthData, logout } from '@/entities/User'
+import { useAppDispatch } from '@/shared/hooks/useAppDispatch'
 
 export const NavMenu = () => {
 
   const {theme} = useContext(ThemeContext)
+
+  const authData = useSelector(getAuthData)
+
+  const dispatch = useAppDispatch()
 
   const navMenuItems: INavMenuItem[] = [
     {
@@ -33,6 +43,30 @@ export const NavMenu = () => {
     {
       href: '/',
       iconType: 'Favorite'
+    },
+  ]
+
+  const dropDownItems: MenuProps['items'] = [
+    {
+      label: <Text color='blue'>{authData.fullname}</Text>,
+      key: '0'
+    },
+    {
+      label: <AppLink to={`/profile/${authData._id}`}>Профиль</AppLink>,
+      key: '1'
+    },
+    {
+      label: 'Сменить тему',
+      key: '2'
+    },
+    {
+      label: 'Настройки',
+      key: '3'
+    },
+    {
+      label: 'Выйти',
+      onClick: () => dispatch(logout()) ,
+      key: '4'
     },
   ]
   return (
@@ -60,7 +94,12 @@ export const NavMenu = () => {
         </li>
 
         <li>
-          <Avatar src='https://avatars.mds.yandex.net/i?id=5fb289413136914e59af9a5abef761e9241c95c2-10735006-images-thumbs&n=13' size={32}></Avatar>
+          <DropDown  items={dropDownItems} placement='bottomRight'>
+            <a href="" onClick={(e) => e.preventDefault()}>
+              <Avatar src='https://avatars.mds.yandex.net/i?id=5fb289413136914e59af9a5abef761e9241c95c2-10735006-images-thumbs&n=13'
+                size={32}></Avatar>              
+            </a>
+          </DropDown>
         </li>
       </ul>
 

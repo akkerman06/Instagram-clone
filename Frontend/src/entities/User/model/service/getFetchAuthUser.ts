@@ -26,7 +26,6 @@ export const getFetchAuthUser = createAsyncThunk<any , void , ThunkConfig<string
 
         console.log(res)
     } catch(err: any){
-        console.log(err.response.data.msg)
         return rejectWithValue(err.response.data.msg)
      }
 
