@@ -3,12 +3,15 @@ import { StateSchema, ThunkExtraArg } from './StateSchema'
 import { authReducer } from '@/features/auth'
 import { userReducer } from '@/entities/User'
 import { $api } from '@/shared/api'
+import { profile } from 'console'
+import { profileReducer } from '@/entities/Profile'
 
 export const createStore = () => {
 
     const rootReducer: ReducersMapObject<StateSchema> = {
         auth: authReducer,
-        user: userReducer
+        user: userReducer,
+        profile: profileReducer
     }
 
     const extraArg: ThunkExtraArg = {
