@@ -1,17 +1,18 @@
 import { getAuthData } from '@/entities/User'
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch'
-import React, { FC, useEffect } from 'react'
+import  { FC, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { profileActions } from '../../model/slice/profileSlice'
 import { getProfileUser } from '../../model/selectors/getProfileUser'
 import { HStack, Spinner, Text, VStack } from '@/shared/ui'
-import { Avatar, Button } from 'antd'
+import { Avatar, Button, Modal } from 'antd'
 import { EllipsisOutlined } from '@ant-design/icons'
 import cls from './ProfileInfo.module.scss'
 import { useProfile } from '../../model/consts/useProfile'
 import { DropDown } from '@/shared/ui/Popups/DropDown/DropDown'
 import { User } from '@/entities/User/model/types/user'
 import { getProfileUserLoading } from '../../model/selectors/getProfileUserLoading'
+import { EditProfile } from '../EditProfile/EditProfile'
 
 interface ProfileInfoProps {
   id: string
@@ -25,14 +26,20 @@ export const ProfileInfo:FC<ProfileInfoProps> = ({id , users}) => {
   const user = useSelector(getProfileUser)
   const dropDownDotsItems = useProfile(authData._id === id)
 
+  const [isOpen , setIsOpen] = useState(false)
 
+  const onOpen = () => {
+    setIsOpen(true)
+  }
+  const onClose = () => {
+    setIsOpen(false)
+  }
   useEffect(() => {
     if(authData._id === id){
       dispatch(profileActions.setProfileUser(authData))
     }
     else {
       const newUser = users.find((item) => item._id === id)
-
       if(newUser) dispatch(profileActions.setProfileUser(newUser))
     }
   }, [id , authData , users])
@@ -56,8 +63,12 @@ export const ProfileInfo:FC<ProfileInfoProps> = ({id , users}) => {
               <Text>@{user.username}</Text>
 
               {
-                authData._id === id ?  <Button type='default'>Изменить</Button> : <Button type='primary'>Подписаться</Button>
+                authData._id === id ?  <Button onClick={onOpen} type='default'>Изменить</Button> : <Button type='primary'>Подписаться</Button>
               }
+               
+              <Modal open={isOpen} title='Edit Profile' centered onCancel={onClose} footer={null}>
+                <EditProfile onClose={onClose} auth={authData} />
+              </Modal>
 
 
               <DropDown items={dropDownDotsItems}>
@@ -82,17 +93,17 @@ export const ProfileInfo:FC<ProfileInfoProps> = ({id , users}) => {
               </HStack>
             </HStack>
 
-            <VStack>
+            <VStack gap={8}>
               <Text size={18}  weight={700}>
                 {user.fullname}
               </Text>
-              <Text size={18}  weight={700}>
+              <Text size={14}  weight={400}>
                 {user.mobile}
               </Text>
-              <Text size={18}  weight={700}>
+              <Text size={18}  weight={400}>
                 {user.address}
               </Text>
-              <Text size={18} weight={700}>
+              <Text size={18} weight={400}>
                 <a href={user.website} target='_blank'>
                   {user.website}
                 </a>

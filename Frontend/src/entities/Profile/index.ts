@@ -1,12 +1,29 @@
-export {searchUsers} from './model/service/searchUsers'
+// ui
+export { ProfileInfo } from "./ui/ProfileInfo/ProfileInfo";
+export { EditProfile } from "./ui/EditProfile/EditProfile";
 
-export {} from './ui/ProfileInfo/ProfileInfo'
+// types
+export type { ProfileState } from "./model/types/profile";
 
-export type {ProfileState} from './model/types/profile'
-export {profileActions , profileReducer} from './model/slice/profileSlice' 
-export {getSearchUsers} from './model/selectors/getSearchUsers'
-export {getSearchLoading} from './model/selectors/getSearchLoading'
-export {getProfileUser} from './model/selectors/getProfileUser'
-export {getUserProfile} from './model/service/getUserProfile'
-export {getProfileUsers} from './model/selectors/getProfileUsers'
-export {getProfileUserLoading} from './model/selectors/getProfileUserLoading'
+// slice
+export { profileActions, profileReducer } from "./model/slice/profileSlice";
+
+// service
+export { searchUsers } from "./model/service/searchUsers";
+export { getUserProfile } from "./model/service/getUserProfile";
+export { updateProfile } from "./model/service/updateProfile";
+
+// selectors
+export { getProfileUser } from "./model/selectors/getProfileUser";
+export { getSearchLoading } from "./model/selectors/getSearchLoading";
+export { getSearchUsers } from "./model/selectors/getSearchUsers";
+export { getProfileUsers } from "./model/selectors/getProfileUsers";
+export { getProfileUserLoading } from "./model/selectors/getProfileUserLoading";
+export { getProfileError } from "./model/selectors/getProfileError";
+export { getProfileSucces } from "./model/selectors/getProfileSucces";
+
+// <TableOutlined />
+// <PlayCircleOutlined />
+// <ReadOutlined />
+// <ContactsOutlined />
+// <YoutubeOutlined />

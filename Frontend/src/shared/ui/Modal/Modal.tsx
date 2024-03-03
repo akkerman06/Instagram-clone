@@ -17,7 +17,7 @@ export const Modal: FC<ModalProps> = (props) => {
         
         <div className={cls.box}>
             <span className={cls.close} onClick={onClose}>
-                &times;s
+                &times;
             </span>
 
             <div className={cls.content}>{children}</div>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ProfileState } from "../types/profile";
 import { searchUsers } from "../service/searchUsers";
 import { getUserProfile } from "../service/getUserProfile";
+import { updateProfile } from "../service/updateProfile";
 
 const initialState: ProfileState = {
     posts: [],
@@ -48,6 +49,18 @@ const profileSlice = createSlice({
             state.loading = false
             state.users = [...state.users, action.payload.user]
         })
+        .addCase(updateProfile.pending, (state , action) => {
+            state.error = '',
+            state.succes = ''
+        })
+        .addCase(updateProfile.fulfilled, (state , action) => {
+            state.error = '',
+            state.succes = 'Профиль успешно обновлен'
+        })
+        .addCase(updateProfile.rejected, (state , action) => {
+            state.error = 'Ошибка при обновлении профиля',
+            state.succes = ''
+        })        
     },
 
    

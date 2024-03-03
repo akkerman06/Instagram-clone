@@ -96,7 +96,7 @@ export const NavMenu = () => {
         <li>
           <DropDown  items={dropDownItems} placement='bottomRight'>
             <a href="" onClick={(e) => e.preventDefault()}>
-              <Avatar src='https://avatars.mds.yandex.net/i?id=5fb289413136914e59af9a5abef761e9241c95c2-10735006-images-thumbs&n=13'
+              <Avatar src={authData.avatar}
                 size={32}></Avatar>              
             </a>
           </DropDown>
