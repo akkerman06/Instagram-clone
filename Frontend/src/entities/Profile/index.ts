@@ -12,6 +12,7 @@ export { profileActions, profileReducer } from "./model/slice/profileSlice";
 export { searchUsers } from "./model/service/searchUsers";
 export { getUserProfile } from "./model/service/getUserProfile";
 export { updateProfile } from "./model/service/updateProfile";
+export { followUser } from "./model/service/follow";
 
 // selectors
 export { getProfileUser } from "./model/selectors/getProfileUser";

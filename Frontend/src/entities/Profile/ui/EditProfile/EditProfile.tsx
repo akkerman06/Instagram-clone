@@ -35,6 +35,7 @@ export const EditProfile: FC<EditProfileProps> = ({auth , onClose}) => {
         const onSubmit = async (data: User) => {
             if(!isValid) return;
             await dispatch(updateProfile({user: data , avatar: avatar}))
+            setAvatar(null)
             // onClose() закрытия окна после нажатия кнопки сохранить
         }
 

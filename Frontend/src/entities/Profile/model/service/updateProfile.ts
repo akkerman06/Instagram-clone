@@ -1,6 +1,7 @@
 import { ThunkConfig } from "@/app/provider";
 import { userActions } from "@/entities/User";
 import { User } from "@/entities/User/model/types/user";
+import { ImageUpload, imageUploade } from "@/shared/lib/imageUpload";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 interface UpdateProfileParams{
@@ -12,10 +13,17 @@ export const updateProfile = createAsyncThunk<any , UpdateProfileParams , ThunkC
  async (params, thunkApi) => {
     const { rejectWithValue  , extra , dispatch} = thunkApi
     const {user , avatar} = params
+    let newAvatar: ImageUpload[] = []
     try{
-        const res = await extra.api.patch(`/user` , user)
+        if (avatar) newAvatar = await imageUploade([avatar])
+
+        const newUser = {
+            ...user,
+            avatar: avatar ? newAvatar[0].url : user.avatar
+        }
+        const res = await extra.api.patch(`/user` , newUser)
         if(res.data){
-            dispatch(userActions.setUpdateUser(user))
+            dispatch(userActions.setUpdateUser(newUser))
         }
     } catch(err: any){
         return rejectWithValue(err.response.data.msg)
