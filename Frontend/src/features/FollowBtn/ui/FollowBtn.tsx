@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 interface FollowBtnProps {
   user: User;
-  id: string;
+  id?: string;
 }
 
 export const FollowBtn: FC<FollowBtnProps> = ({ user, id }) => {
@@ -20,7 +20,7 @@ export const FollowBtn: FC<FollowBtnProps> = ({ user, id }) => {
   const onFollow = async () => {
     if (load) return;
     setLoad(true);
-    await dispatch(followUser({ user, auth: authData }));
+    await dispatch(followUser({ user, auth: authData, id }));
     setLoad(false);
   };
   const unFollow = async () => {
@@ -35,7 +35,7 @@ export const FollowBtn: FC<FollowBtnProps> = ({ user, id }) => {
     }
 
     return () => setFollow(false);
-  }, [authData.following, id]);
+  }, [authData?.following, id]);
   return (
     <>
       {follow ? (

@@ -1,6 +1,6 @@
 import { getAuthData } from "@/entities/User";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { profileActions } from "../../model/slice/profileSlice";
 import { getProfileUser } from "../../model/selectors/getProfileUser";
@@ -14,10 +14,16 @@ import { User } from "@/entities/User/model/types/user";
 import { getProfileUserLoading } from "../../model/selectors/getProfileUserLoading";
 import { EditProfile } from "../EditProfile/EditProfile";
 import { FollowBtn } from "@/features";
+import { FollowEnum } from "../../model/types/profile";
+import { FollowModal } from "../FollowModal/FollowModal";
 
 interface ProfileInfoProps {
   id: string;
   users: User[];
+}
+interface FollowModalType {
+  isOpen: boolean;
+  view: FollowEnum;
 }
 
 export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
@@ -28,6 +34,10 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
   const dropDownDotsItems = useProfile(authData._id === id);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isFollowModal, setIsFollowModal] = useState<FollowModalType>({
+    isOpen: false,
+    view: FollowEnum.FOLLOWERS,
+  });
 
   const onOpen = () => {
     setIsOpen(true);
@@ -36,6 +46,24 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
   const onClose = () => {
     setIsOpen(false);
   };
+  const onOpenFollowersModal = useCallback(() => {
+    setIsFollowModal({
+      isOpen: true,
+      view: FollowEnum.FOLLOWERS,
+    });
+  }, [isFollowModal]);
+  const onOpenFollowingModal = useCallback(() => {
+    setIsFollowModal({
+      isOpen: true,
+      view: FollowEnum.FOLLOWING,
+    });
+  }, [isFollowModal]);
+  const onCloseFollowModal = useCallback(() => {
+    setIsFollowModal((prev: FollowModalType) => {
+      return { ...prev, isOpen: false };
+    });
+  }, []);
+
   useEffect(() => {
     if (authData._id === id) {
       dispatch(profileActions.setProfileUser(authData));
@@ -98,20 +126,52 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
                 <Text>posts</Text>
               </HStack>
 
-              <HStack gap={8}>
+              <HStack
+                gap={8}
+                onClick={onOpenFollowersModal}
+                className={cls.follow}
+                max={false}
+              >
                 <Text weight={700} color="black" size={14}>
                   {user.followers.length}
                 </Text>
                 <Text>подписчики</Text>
               </HStack>
 
-              <HStack gap={8}>
+              <HStack
+                gap={8}
+                onClick={onOpenFollowingModal}
+                className={cls.follow}
+                max={false}
+              >
                 <Text weight={700} color="black" size={14}>
                   {user.following.length}
                 </Text>
                 <Text>подписки</Text>
               </HStack>
             </HStack>
+
+            <Modal
+              open={isFollowModal.isOpen}
+              title={
+                <Text size={14} color="black">
+                  {isFollowModal.view === FollowEnum.FOLLOWERS
+                    ? "Подписчики"
+                    : "Подписки"}
+                </Text>
+              }
+              centered
+              onCancel={onCloseFollowModal}
+              footer={null}
+            >
+              <FollowModal
+                data={
+                  isFollowModal.view === FollowEnum.FOLLOWERS
+                    ? user.followers
+                    : user.following
+                }
+              />
+            </Modal>
 
             <VStack gap={8}>
               <Text size={18} weight={700}>

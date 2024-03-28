@@ -1,13 +1,16 @@
-import { User } from "@/entities/User/model/types/user"
-
+import { User } from "@/entities/User/model/types/user";
 
 export interface ProfileState {
-    posts: []
-    users: User[]
-    user: User
-    error: string
-    succes: string
-    loading: boolean
-    searchUsers: User[]
-    searchLoading: boolean
+  posts: [];
+  users: User[];
+  user: User;
+  error: string;
+  succes: string;
+  loading: boolean;
+  searchUsers: User[];
+  searchLoading: boolean;
+}
+export enum FollowEnum {
+  FOLLOWERS = "followers",
+  FOLLOWING = "following",
 }

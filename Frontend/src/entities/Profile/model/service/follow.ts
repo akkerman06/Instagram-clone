@@ -8,6 +8,7 @@ import { profileActions } from "../slice/profileSlice";
 interface FollowParams {
   user: User;
   auth: User;
+  id: string;
 }
 
 export const followUser = createAsyncThunk<
@@ -16,16 +17,17 @@ export const followUser = createAsyncThunk<
   ThunkConfig<string>
 >("profile/follow", async (params, thunkApi) => {
   const { rejectWithValue, extra, dispatch } = thunkApi;
-  const { user, auth } = params;
+  const { user, auth, id } = params;
   try {
     const newUser = {
       ...user,
       followers: [...user.followers, auth],
     };
+    dispatch(profileActions.setUpdateFollow(newUser));
     dispatch(
       userActions.setUpdateUser({
         ...auth,
-        following: [...auth.following, user],
+        following: [...auth.following, newUser],
       })
     );
     await extra.api.patch(`/user/${user._id}/follow`);

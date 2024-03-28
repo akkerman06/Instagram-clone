@@ -3,7 +3,7 @@ export { ProfileInfo } from "./ui/ProfileInfo/ProfileInfo";
 export { EditProfile } from "./ui/EditProfile/EditProfile";
 
 // types
-export type { ProfileState } from "./model/types/profile";
+export type { ProfileState, FollowEnum } from "./model/types/profile";
 
 // slice
 export { profileActions, profileReducer } from "./model/slice/profileSlice";
