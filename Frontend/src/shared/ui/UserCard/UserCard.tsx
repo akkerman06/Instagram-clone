@@ -5,7 +5,7 @@ import { AppLink } from "../AppLink/AppLink";
 import { Text } from "../Text/Text";
 import { ClassNames } from "@/shared/lib/classNames";
 import cls from "./UserCard.module.scss";
-import { Avatar } from "../Avatar/Avatar";
+import { Avatar, AvatarSize } from "../Avatar/Avatar";
 interface UserCardProps {
   className?: string;
   id?: string;
@@ -16,27 +16,36 @@ interface UserCardProps {
   content: string;
   onclick?: () => void;
   children?: ReactNode;
+  size?: AvatarSize;
 }
 
 export const UserCard: FC<UserCardProps> = memo((props) => {
-  const { src, className, id, title, content, onclick, children } = props;
+  const { src, className, id, title, content, onclick, children, size } = props;
 
+  const sizeClasses: Record<AvatarSize, string> = {
+    "22": cls.size22,
+    "32": cls.size32,
+    "56": cls.size56,
+    "150": cls.size150,
+  };
   return (
-    <HStack
-      justify="between"
-      gap={16}
-      className={ClassNames(cls.userCard, {}, [className])}
-      onClick={onclick}
-    >
-      <Avatar src={src && src} />
+    <HStack justify="between" align="center">
+      <HStack
+        gap={16}
+        className={ClassNames(cls.userCard, {}, [className, sizeClasses[size]])}
+        onClick={onclick}
+        align="center"
+      >
+        <Avatar size={size} src={src && src} />
 
-      <VStack gap={8}>
-        <Text size={14} color="blue" weight={700} tag="span">
-          <AppLink to={`/profile/${id}`}>{title}</AppLink>
-        </Text>
-        <Text>{content}</Text>
-      </VStack>
-      {children}
+        <VStack gap={0}>
+          <Text size={14} line={12} color="blue" weight={700} tag="span">
+            <AppLink to={`/profile/${id}`}>{title}</AppLink>
+          </Text>
+          {content && <Text tag="span">{content}</Text>}
+        </VStack>
+        {children}
+      </HStack>
     </HStack>
   );
 });

@@ -14,3 +14,7 @@ export enum FollowEnum {
   FOLLOWERS = "followers",
   FOLLOWING = "following",
 }
+export interface FollowModalType {
+  isOpen: boolean;
+  view: FollowEnum;
+}

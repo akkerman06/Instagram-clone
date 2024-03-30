@@ -1,8 +1,28 @@
 .userCard {
-    .title{
-
-        &:hover {
-            text-decoration: underline;
-        }
+  .title {
+    &:hover {
+      text-decoration: underline;
     }
+  }
+
+  &.size22 {
+    h2 {
+      font-size: 13px;
+      line-height: 16px;
+    }
+    span {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
+  &.size32 {
+    h2 {
+      font-size: 13px;
+      line-height: 16px;
+    }
+    span {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
 }

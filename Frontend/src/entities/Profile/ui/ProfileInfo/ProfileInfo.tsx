@@ -14,16 +14,13 @@ import { User } from "@/entities/User/model/types/user";
 import { getProfileUserLoading } from "../../model/selectors/getProfileUserLoading";
 import { EditProfile } from "../EditProfile/EditProfile";
 import { FollowBtn } from "@/features";
-import { FollowEnum } from "../../model/types/profile";
 import { FollowModal } from "../FollowModal/FollowModal";
+import { useProfileModal } from "../../model/hooks/useProfileModal";
+import { FollowEnum } from "../../model/types/profile";
 
 interface ProfileInfoProps {
   id: string;
   users: User[];
-}
-interface FollowModalType {
-  isOpen: boolean;
-  view: FollowEnum;
 }
 
 export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
@@ -33,36 +30,15 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
   const user = useSelector(getProfileUser);
   const dropDownDotsItems = useProfile(authData._id === id);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [isFollowModal, setIsFollowModal] = useState<FollowModalType>({
-    isOpen: false,
-    view: FollowEnum.FOLLOWERS,
-  });
-
-  const onOpen = () => {
-    setIsOpen(true);
-    dispatch(profileActions.setClearMessage());
-  };
-  const onClose = () => {
-    setIsOpen(false);
-  };
-  const onOpenFollowersModal = useCallback(() => {
-    setIsFollowModal({
-      isOpen: true,
-      view: FollowEnum.FOLLOWERS,
-    });
-  }, [isFollowModal]);
-  const onOpenFollowingModal = useCallback(() => {
-    setIsFollowModal({
-      isOpen: true,
-      view: FollowEnum.FOLLOWING,
-    });
-  }, [isFollowModal]);
-  const onCloseFollowModal = useCallback(() => {
-    setIsFollowModal((prev: FollowModalType) => {
-      return { ...prev, isOpen: false };
-    });
-  }, []);
+  const {
+    isOpen,
+    isFollowModal,
+    onClose,
+    onOpen,
+    onCloseFollowModal,
+    onOpenFollowersModal,
+    onOpenFollowingModal,
+  } = useProfileModal();
 
   useEffect(() => {
     if (authData._id === id) {

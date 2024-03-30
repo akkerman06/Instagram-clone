@@ -2,10 +2,10 @@ import { INavMenuItem } from "../../model/consts/NavMenu";
 import { Icon } from "@/shared/ui/Icon/Icon";
 import cls from "./NavMenu.module.scss";
 import { Avatar } from "@/shared/ui/Avatar/Avatar";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { ThemeContext } from "@/app/provider/ThemeProvider/ui/ThemeProvider";
 import { Theme } from "@/shared/consts/Theme";
-import { SwitchButton } from "@/features";
+import { AddPostModal, SwitchButton } from "@/features";
 import { ClassNames } from "@/shared/lib/classNames";
 import { Link } from "react-router-dom";
 import { LangSwitch } from "@/widgets/LangSwitch/ui/LangSwitch";
@@ -15,6 +15,10 @@ import { AppLink, Text } from "@/shared/ui";
 import { useSelector } from "react-redux";
 import { getAuthData, logout } from "@/entities/User";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import {
+  addPostModalActions,
+  getAddPostModalOpen,
+} from "@/features/AddPostModal";
 
 export const NavMenu = () => {
   const { theme } = useContext(ThemeContext);
@@ -23,6 +27,10 @@ export const NavMenu = () => {
 
   const dispatch = useAppDispatch();
 
+  const isOpenAddPostModal = useSelector(getAddPostModalOpen);
+  const onCloseAddPostModal = useCallback(() => {
+    dispatch(addPostModalActions.setIsAddPostModal(false));
+  }, []);
   const navMenuItems: INavMenuItem[] = [
     {
       href: "/",
@@ -34,6 +42,7 @@ export const NavMenu = () => {
     },
     {
       iconType: "NewPosts",
+      onClick: () => dispatch(addPostModalActions.setIsAddPostModal(true)),
     },
     {
       href: "/register",
@@ -89,10 +98,14 @@ export const NavMenu = () => {
                 <Icon type={item.iconType} />
               </Link>
             ) : (
-              <Icon type={item.iconType} />
+              <Icon type={item.iconType} onClick={item.onClick} />
             )}
           </li>
         ))}
+        <AddPostModal
+          isOpen={isOpenAddPostModal}
+          onClose={onCloseAddPostModal}
+        />
         <li className={theme === Theme.DARK && cls.dark}>
           <SwitchButton />
         </li>
