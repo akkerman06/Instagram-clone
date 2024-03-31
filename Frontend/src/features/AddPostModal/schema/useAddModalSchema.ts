@@ -6,7 +6,7 @@ export enum AddModalFormNames {
   CONTENT = "content",
 }
 
-interface AddModalFormValues {
+export interface AddModalFormValues {
   content: string;
 }
 

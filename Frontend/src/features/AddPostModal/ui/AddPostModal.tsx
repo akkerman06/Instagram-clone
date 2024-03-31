@@ -5,9 +5,12 @@ import { ChangeEvent, FC, useState } from "react";
 import cls from "./AddPostModal.module.scss";
 import {
   AddModalFormNames,
+  AddModalFormValues,
   useAddModalFormSchema,
 } from "../schema/useAddModalSchema";
 import { checkImages } from "@/shared/lib/checkImages";
+import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
+import { createPost } from "@/entities/PostCard";
 interface AddPostModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -24,6 +27,7 @@ export const AddPostModal: FC<AddPostModalProps> = ({ isOpen, onClose }) => {
     isSubmitting,
   } = useAddModalFormSchema();
   const [images, setImages] = useState([]);
+  const dispatch = useAppDispatch();
 
   const handleChangeImages = (e: any) => {
     const files = [...e.target.files];
@@ -37,6 +41,13 @@ export const AddPostModal: FC<AddPostModalProps> = ({ isOpen, onClose }) => {
     newImages.splice(index, 1);
     setImages(newImages);
   };
+  const onSubmit = async (data: AddModalFormValues) => {
+    if (images.length < 0) return message.error("Выберить фото");
+    await dispatch(createPost({ images, content: data.content }));
+    setImages([]);
+    reset();
+    onClose();
+  };
   return (
     <Modal
       centered
@@ -49,7 +60,7 @@ export const AddPostModal: FC<AddPostModalProps> = ({ isOpen, onClose }) => {
       open={isOpen}
       onCancel={onClose}
     >
-      <Form className={cls.form}>
+      <Form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
         <VStack gap={12} align="end">
           <Input
             placeholder="Введите текст"
@@ -83,10 +94,15 @@ export const AddPostModal: FC<AddPostModalProps> = ({ isOpen, onClose }) => {
             </label>
 
             <Text color={errors?.content?.message ? "error" : "black"}>
-              {watch(AddModalFormNames.CONTENT).length}/ 200
+              {watch(AddModalFormNames.CONTENT).length}/200
             </Text>
           </HStack>
-          <Button type="primary" disabled={!isValid}>
+          <Button
+            htmlType="submit"
+            type="primary"
+            disabled={!isValid}
+            loading={isSubmitting}
+          >
             Добавить
           </Button>
         </VStack>

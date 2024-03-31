@@ -1,3 +1,4 @@
+import { PostState } from "@/entities/PostCard";
 import { ProfileState } from "@/entities/Profile";
 import { UserState } from "@/entities/User";
 import { AddPostModalState } from "@/features/AddPostModal";
@@ -9,6 +10,7 @@ export interface StateSchema {
   user: UserState;
   profile: ProfileState;
   addPostModal: AddPostModalState;
+  post: PostState;
 }
 
 export interface ThunkExtraArg {

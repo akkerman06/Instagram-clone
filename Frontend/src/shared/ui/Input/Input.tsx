@@ -22,6 +22,7 @@ export const Input: FC<InputProps> = forwardRef((props, ref: any) => {
   const mods: Mods = {
     [cls.active]: value,
     [cls.errorField]: error,
+    [cls.textAreaActive]: textarea,
   };
   return (
     <div className={ClassNames(cls.field, mods, [className])}>

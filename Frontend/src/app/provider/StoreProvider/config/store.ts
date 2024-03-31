@@ -3,9 +3,9 @@ import { StateSchema, ThunkExtraArg } from "./StateSchema";
 import { authReducer } from "@/features/auth";
 import { userReducer } from "@/entities/User";
 import { $api } from "@/shared/api";
-import { profile } from "console";
 import { profileReducer } from "@/entities/Profile";
 import { addPostModalReducer } from "@/features/AddPostModal";
+import { postReducer } from "@/entities/PostCard";
 
 export const createStore = () => {
   const rootReducer: ReducersMapObject<StateSchema> = {
@@ -13,6 +13,7 @@ export const createStore = () => {
     user: userReducer,
     profile: profileReducer,
     addPostModal: addPostModalReducer,
+    post: postReducer,
   };
 
   const extraArg: ThunkExtraArg = {
