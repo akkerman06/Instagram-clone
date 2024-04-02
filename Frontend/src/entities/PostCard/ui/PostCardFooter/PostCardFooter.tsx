@@ -1,7 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import cls from "./PostCardFooter.module.scss";
 import { HStack, Icon, Text, VStack } from "@/shared/ui";
-export const PostCardFooter = () => {
+import { PostProps } from "../../model/types/post";
+
+export const PostCardFooter: FC<PostProps> = ({ post }) => {
   return (
     <VStack>
       <HStack className={cls.icons}>
@@ -15,13 +17,13 @@ export const PostCardFooter = () => {
       </HStack>
 
       <VStack className={cls.body}>
-        <Text weight={700}>1.088 likes</Text>
+        <Text weight={700}>{post.likes.length} likes</Text>
         <div>
           <Text weight={700} tag="span">
-            ironman
+            {post.user.username}:
           </Text>
-          <Text weight={400} tag="span" className={cls.text}>
-            bla bla bldfdnfsdnfsv,bvckbnvb m
+          <Text color="black" weight={400} tag="span" className={cls.text}>
+            {post.content}
           </Text>
         </div>
       </VStack>

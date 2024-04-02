@@ -11,7 +11,7 @@ export const PostCard: FC<PostProps> = ({ post }) => {
     <VStack className={cls.postCard}>
       <PostCardHeader post={post} />
       <PostCardBody post={post} />
-      <PostCardFooter />
+      <PostCardFooter post={post} />
       <div className="commets"> </div>
       <div className="addCommentInput "> </div>
     </VStack>

@@ -16,6 +16,9 @@ export interface Post {
 export interface PostState {
   loading: boolean;
   posts: any[];
+  resultPosts: number;
+  error: string;
+  inited: boolean;
 }
 
 export type PostProps = {

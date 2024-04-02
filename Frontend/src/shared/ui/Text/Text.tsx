@@ -74,5 +74,5 @@ export const Text: FC<TextProps> = (props) => {
     className,
   ];
   const Tag = tag;
-  return <Tag className={ClassNames("", {}, classes)}>{children}</Tag>;
+  return <Tag className={ClassNames(cls.text, {}, classes)}>{children}</Tag>;
 };
