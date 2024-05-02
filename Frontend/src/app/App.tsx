@@ -6,6 +6,7 @@ import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { getFetchAuthUser } from "@/entities/User/model/service/getFetchAuthUser";
 import { LOCAL_STORAGE_TOKEN } from "@/shared/consts/LocalStorage";
 import { RouteProvider } from "./provider";
+import { Icon } from "@/shared/ui";
 
 const App = () => {
   const isLogged = useSelector(getAuthToken);

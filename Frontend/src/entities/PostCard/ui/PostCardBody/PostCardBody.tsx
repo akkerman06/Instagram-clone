@@ -15,7 +15,9 @@ export const PostCardBody: FC<PostProps> = ({ post }) => {
     <div className={cls.body}>
       <Carousel draggable>
         {post.images.map((img) => (
-          <img src={img.url} />
+          <div key={img.public_id}>
+            <img src={img.url} />
+          </div>
         ))}
       </Carousel>
     </div>

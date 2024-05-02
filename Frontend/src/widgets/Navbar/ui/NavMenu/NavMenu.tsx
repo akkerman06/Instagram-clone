@@ -3,8 +3,6 @@ import { Icon } from "@/shared/ui/Icon/Icon";
 import cls from "./NavMenu.module.scss";
 import { Avatar } from "@/shared/ui/Avatar/Avatar";
 import { useCallback, useContext } from "react";
-import { ThemeContext } from "@/app/provider/ThemeProvider/ui/ThemeProvider";
-import { Theme } from "@/shared/consts/Theme";
 import { AddPostModal, SwitchButton } from "@/features";
 import { ClassNames } from "@/shared/lib/classNames";
 import { Link } from "react-router-dom";
@@ -21,8 +19,6 @@ import {
 } from "@/features/AddPostModal";
 
 export const NavMenu = () => {
-  const { theme } = useContext(ThemeContext);
-
   const authData = useSelector(getAuthData);
 
   const dispatch = useAppDispatch();
@@ -85,14 +81,7 @@ export const NavMenu = () => {
     <nav className={cls.nav}>
       <ul className={cls.list}>
         {navMenuItems.map((item) => (
-          <li
-            key={item.iconType}
-            className={ClassNames(
-              cls.item,
-              { [cls.dark]: theme === Theme.DARK },
-              []
-            )}
-          >
+          <li key={item.iconType} className={ClassNames(cls.item, {}, [])}>
             {item.href ? (
               <Link to={item.href} className={cls.link}>
                 <Icon type={item.iconType} />
@@ -106,7 +95,7 @@ export const NavMenu = () => {
           isOpen={isOpenAddPostModal}
           onClose={onCloseAddPostModal}
         />
-        <li className={theme === Theme.DARK && cls.dark}>
+        <li>
           <SwitchButton />
         </li>
 

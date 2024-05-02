@@ -1,4 +1,8 @@
 .icon {
-    display: flex;
-    cursor: pointer;
+  display: flex;
+  cursor: pointer;
+}
+
+.dark {
+  filter: invert(100%);
 }

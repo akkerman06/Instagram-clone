@@ -16,6 +16,7 @@ export const HomeSuggestions: FC<HomeUserProps> = ({ user }) => {
         <VStack gap={12}>
           {[1, 2, 3, 4, 5].map((item) => (
             <UserCard
+              key={item}
               id={user?._id}
               size={32}
               src={user?.avatar}

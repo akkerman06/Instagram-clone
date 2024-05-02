@@ -2,13 +2,15 @@ import React, { FC } from "react";
 import cls from "./PostCardFooter.module.scss";
 import { HStack, Icon, Text, VStack } from "@/shared/ui";
 import { PostProps } from "../../model/types/post";
+import { LikeBtn } from "@/features/LikeBtn/LikeBtn";
+import { useSelector } from "react-redux";
 
 export const PostCardFooter: FC<PostProps> = ({ post }) => {
   return (
     <VStack>
       <HStack className={cls.icons}>
         <HStack gap={12}>
-          <Icon type="Favorite" />
+          <LikeBtn post={post} />
           <Icon type="Comment" />
           <Icon type="SharePosts" />
         </HStack>

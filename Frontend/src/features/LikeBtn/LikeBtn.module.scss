@@ -1,0 +1,16 @@
+.like {
+  svg {
+    width: 26px;
+    height: 27px;
+    path {
+      fill: red;
+    }
+  }
+  transition: all 0.2s;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+  transform: scale(1.2);
+  transition: all 0.2s;
+}
