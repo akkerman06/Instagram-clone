@@ -1,12 +1,16 @@
 import { Children, FC, InputHTMLAttributes, forwardRef } from "react";
 import cls from "./Input.module.scss";
 import { ClassNames, Mods } from "@/shared/lib/classNames";
+
+type VariantInput = "default" | "borderless";
+
 interface InputProps
   extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   className?: string;
   error?: string;
   value: string;
   textarea?: boolean;
+  variant?: VariantInput;
 }
 
 export const Input: FC<InputProps> = forwardRef((props, ref: any) => {
@@ -16,8 +20,15 @@ export const Input: FC<InputProps> = forwardRef((props, ref: any) => {
     error,
     placeholder,
     textarea,
+    variant,
     ...rest
   } = props;
+
+  // const variantClasses: Record<VariantInput, string> = {
+  //   default: cls.default,
+  //   borderless: cls.borderless,
+  // };
+  // const classes = [variant && variantClasses[variant], className];
 
   const mods: Mods = {
     [cls.active]: value,

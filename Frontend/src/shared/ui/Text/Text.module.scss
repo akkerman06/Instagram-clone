@@ -1,5 +1,4 @@
 .text {
-  word-break: break-all;
 }
 
 .size10 {
@@ -39,6 +38,9 @@
 .weight700 {
   font-weight: 700;
 }
+.weight700 {
+  font-weight: 900;
+}
 .blue {
   color: var(--blue_500);
 }
@@ -63,4 +65,7 @@
 }
 .right {
   text-align: right;
+}
+.clickable {
+  cursor: pointer;
 }

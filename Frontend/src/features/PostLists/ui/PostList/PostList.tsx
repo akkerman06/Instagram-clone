@@ -4,7 +4,7 @@ import {
   getDataPosts,
   getPostsLoading,
 } from "@/entities/PostCard";
-import { HStack, Skeleton, Text, VStack } from "@/shared/ui";
+import { Text, VStack } from "@/shared/ui";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -23,7 +23,7 @@ export const PostList = () => {
   }
   return (
     <VStack gap={22}>
-      {postsData.length > 0 ? (
+      {postsData?.length > 0 ? (
         postsData.map((post) => <PostCard key={post._id} post={post} />)
       ) : (
         <Text color="black" size={18}>

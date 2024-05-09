@@ -1,0 +1,48 @@
+.modal {
+}
+
+.img {
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+.imgContent {
+  height: auto;
+}
+.modalContent {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 12px;
+}
+.mainContent {
+  height: 100%;
+}
+.mainContentWrap {
+  width: 100%;
+  min-height: 100%;
+  gap: 10px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "postUserBlock"
+    "postUserComments"
+    "postCardFooterBlock";
+}
+.postUserBlock {
+  grid-area: postUserBlock;
+  border-bottom: 1px grey solid;
+  padding-bottom: 10px;
+}
+.postUserComments {
+  grid-area: postUserComments;
+  overflow: auto;
+  max-height: 290px;
+  gap: 10px;
+}
+.postCardFooterBlock {
+  border-top: 1px grey solid;
+  grid-area: postCardFooterBlock;
+}

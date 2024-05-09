@@ -10,6 +10,7 @@ import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { useEffect } from "react";
 import { getFetchPosts } from "../../model/service/getFetchPosts";
 import { getPostsInited } from "@/entities/PostCard";
+import { PostCommentModal } from "@/features/PostCommentModal/ui/PostCommentModal";
 export const HomePage = () => {
   const authData = useSelector(getAuthData);
   const isInitedPosts = useSelector(getPostsInited);

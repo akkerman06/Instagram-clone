@@ -2,7 +2,6 @@ import { Icon } from "@/shared/ui";
 import { FC, useEffect, useState } from "react";
 import cls from "./LikeBtn.module.scss";
 import { Post, likePost, unLikePost } from "@/entities/PostCard";
-import { User } from "@/entities/User/model/types/user";
 import { useSelector } from "react-redux";
 import { getAuthData } from "@/entities/User";
 import { PostProps } from "@/entities/PostCard/model/types/post";
@@ -49,7 +48,7 @@ export const LikeBtn: FC<PostProps> = ({ post }) => {
       ) : (
         <Icon
           type="Favorite"
-          className={ClassNames("", mods, [])}
+          className={ClassNames(cls.unlike, mods, [])}
           onClick={onIsLike}
         />
       )}

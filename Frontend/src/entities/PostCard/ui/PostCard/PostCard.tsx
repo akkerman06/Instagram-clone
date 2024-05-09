@@ -5,15 +5,17 @@ import { PostCardFooter } from "../PostCardFooter/PostCardFooter";
 import cls from "./PostCard.module.scss";
 import { VStack } from "@/shared/ui";
 import { Post, PostProps } from "../../model/types/post";
+import { PostCardComments } from "../PostCardComments/PostCardComments";
 
 export const PostCard: FC<PostProps> = ({ post }) => {
   return (
     <VStack className={cls.postCard}>
       <PostCardHeader post={post} />
       <PostCardBody post={post} />
-      <PostCardFooter post={post} />
-      <div className="commets"> </div>
-      <div className="addCommentInput "> </div>
+      <div className={cls.PostCardFooter}>
+        <PostCardFooter postCommentModal={true} post={post} />
+      </div>
+      <PostCardComments post={post} />
     </VStack>
   );
 };

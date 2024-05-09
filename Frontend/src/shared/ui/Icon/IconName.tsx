@@ -12,6 +12,7 @@ import Google from "@/shared/assets/svg/google.svg";
 import Comment from "@/shared/assets/svg/Comment.svg";
 import Save from "@/shared/assets/svg/Save.svg";
 import SharePosts from "@/shared/assets/svg/SharePosts.svg";
+import Smile from "@/shared/assets/svg/Smile.svg";
 
 export type IconType =
   | "Home"
@@ -27,7 +28,8 @@ export type IconType =
   | "Google"
   | "Comment"
   | "Save"
-  | "SharePosts";
+  | "SharePosts"
+  | "Smile";
 
 export const iconName: Record<IconType, JSX.Element> = {
   Home: <Home />,
@@ -44,4 +46,5 @@ export const iconName: Record<IconType, JSX.Element> = {
   Comment: <Comment />,
   Save: <Save />,
   SharePosts: <SharePosts />,
+  Smile: <Smile />,
 };

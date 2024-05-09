@@ -2,12 +2,39 @@
   svg {
     width: 26px;
     height: 27px;
+
     path {
-      fill: red;
+      stroke: black;
+      stroke-width: 0.25px;
+    }
+    &:hover {
+      path {
+        stroke: lightgray;
+        stroke-width: 0.25px;
+      }
     }
   }
   transition: all 0.2s;
 }
+.unlike {
+  svg {
+    width: 26px;
+    height: 27px;
+
+    path {
+      stroke: black;
+      stroke-width: 0.25px;
+    }
+    &:hover {
+      path {
+        stroke: lightgray;
+        stroke-width: 0.25px;
+      }
+    }
+  }
+  transition: all 0.2s;
+}
+
 .disabled {
   pointer-events: none;
   opacity: 0.4;

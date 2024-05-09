@@ -1,21 +1,39 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import cls from "./PostCardFooter.module.scss";
 import { HStack, Icon, Text, VStack } from "@/shared/ui";
-import { PostProps } from "../../model/types/post";
+import { Post, PostProps } from "../../model/types/post";
 import { LikeBtn } from "@/features/LikeBtn/LikeBtn";
 import { useSelector } from "react-redux";
+import { PostCommentModal } from "@/features/PostCommentModal/ui/PostCommentModal";
 
-export const PostCardFooter: FC<PostProps> = ({ post }) => {
+interface PostCardFooterProps {
+  post: Post;
+  postCommentModal?: boolean;
+  className?: string;
+}
+
+export const PostCardFooter: FC<PostCardFooterProps> = ({
+  post,
+  postCommentModal = false,
+  className,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onOpen = () => {
+    setIsOpen(true);
+  };
+  const onClose = () => {
+    setIsOpen(false);
+  };
   return (
-    <VStack>
+    <VStack className={className}>
       <HStack className={cls.icons}>
         <HStack gap={12}>
           <LikeBtn post={post} />
-          <Icon type="Comment" />
-          <Icon type="SharePosts" />
+          <Icon onClick={onOpen} className={cls.postIcon} type="Comment" />
+          <Icon className={cls.postIcon} type="SharePosts" />
         </HStack>
 
-        <Icon type="Save" />
+        <Icon className={cls.postIcon} type="Save" />
       </HStack>
 
       <VStack className={cls.body}>
@@ -29,6 +47,12 @@ export const PostCardFooter: FC<PostProps> = ({ post }) => {
           </Text>
         </div>
       </VStack>
+
+      {postCommentModal ? (
+        <PostCommentModal onClose={onClose} isOpen={isOpen} post={post} />
+      ) : (
+        ""
+      )}
     </VStack>
   );
 };

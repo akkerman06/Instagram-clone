@@ -1,10 +1,24 @@
 .icons {
-  padding: 10px 15px;
+  padding: 10px 0 10px 0;
 }
 
 .body {
-  padding: 0 15px 10px 15px;
   .text {
     margin-left: 5px;
+    user-select: none;
+  }
+}
+
+.postIcon:hover {
+  path {
+    stroke: lightgray;
+    stroke-width: 0.25px;
+  }
+}
+
+.postIcon {
+  path {
+    stroke: black;
+    stroke-width: 0.25px;
   }
 }

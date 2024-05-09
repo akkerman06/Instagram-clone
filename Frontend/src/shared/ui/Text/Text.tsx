@@ -1,8 +1,10 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useContext } from "react";
 import cls from "./Text.module.scss";
-import { ClassNames } from "@/shared/lib/classNames";
+import { ClassNames, Mods } from "@/shared/lib/classNames";
+import { ThemeContext } from "@/app/provider";
+import { Theme } from "@/shared/consts/Theme";
 
-export type TextWeight = 200 | 400 | 500 | 600 | 700;
+export type TextWeight = 200 | 400 | 500 | 600 | 700 | 900;
 export type TextSize = 10 | 12 | 14 | 18 | 22 | 28;
 export type TextAlign = "center" | "left" | "right";
 export type TextLine = 12;
@@ -23,6 +25,7 @@ const weightClasses: Record<TextWeight, string> = {
   500: cls.weight500,
   600: cls.weight600,
   700: cls.weight700,
+  900: cls.weight900,
 };
 
 const alignClasess: Record<TextAlign, string> = {
@@ -52,6 +55,7 @@ interface TextProps {
   align?: TextAlign;
   tag?: TextTag;
   line?: TextLine;
+  clickable?: boolean;
 }
 
 export const Text: FC<TextProps> = (props) => {
@@ -64,6 +68,7 @@ export const Text: FC<TextProps> = (props) => {
     color = "gray",
     tag = "h1",
     line = "",
+    clickable = false,
   } = props;
   const classes = [
     size && sizeClasses[size],
@@ -73,6 +78,12 @@ export const Text: FC<TextProps> = (props) => {
     line && LineClasses[line],
     className,
   ];
+  const { theme } = useContext(ThemeContext);
+
+  const mods: Mods = {
+    [cls.clickable]: clickable,
+    [cls.dark]: theme === Theme.DARK,
+  };
   const Tag = tag;
-  return <Tag className={ClassNames(cls.text, {}, classes)}>{children}</Tag>;
+  return <Tag className={ClassNames(cls.text, mods, classes)}>{children}</Tag>;
 };
