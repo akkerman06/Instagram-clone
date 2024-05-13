@@ -47,6 +47,7 @@ export const AddPostModal: FC<AddPostModalProps> = ({ isOpen, onClose }) => {
     setImages([]);
     reset();
     onClose();
+    console.log(data);
   };
   return (
     <Modal

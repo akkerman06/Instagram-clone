@@ -8,6 +8,7 @@ import { Post, PostProps } from "../../model/types/post";
 import { PostCardComments } from "../PostCardComments/PostCardComments";
 
 export const PostCard: FC<PostProps> = ({ post }) => {
+  console.log(post);
   return (
     <VStack className={cls.postCard}>
       <PostCardHeader post={post} />

@@ -1,7 +1,8 @@
+import { Post } from "@/entities/PostCard";
 import { User } from "@/entities/User/model/types/user";
 
 export interface ProfileState {
-  posts: [];
+  posts: Post[];
   users: User[];
   user: User;
   error: string;
@@ -9,6 +10,9 @@ export interface ProfileState {
   loading: boolean;
   searchUsers: User[];
   searchLoading: boolean;
+  inited: boolean;
+  loadingPosts: boolean;
+  lengthUserPosts: number;
 }
 export enum FollowEnum {
   FOLLOWERS = "followers",

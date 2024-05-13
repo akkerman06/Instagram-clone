@@ -5,6 +5,7 @@ import { Post, PostProps } from "../../model/types/post";
 import { LikeBtn } from "@/features/LikeBtn/LikeBtn";
 import { useSelector } from "react-redux";
 import { PostCommentModal } from "@/features/PostCommentModal/ui/PostCommentModal";
+import { ClassNames } from "@/shared/lib/classNames";
 
 interface PostCardFooterProps {
   post: Post;
@@ -25,7 +26,7 @@ export const PostCardFooter: FC<PostCardFooterProps> = ({
     setIsOpen(false);
   };
   return (
-    <VStack className={className}>
+    <VStack className={ClassNames(cls.postFooter, {}, [className])}>
       <HStack className={cls.icons}>
         <HStack gap={12}>
           <LikeBtn post={post} />

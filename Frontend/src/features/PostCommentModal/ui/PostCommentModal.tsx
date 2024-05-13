@@ -1,11 +1,13 @@
 import { Post, PostProps } from "@/entities/PostCard/model/types/post";
-import { Button, ConfigProvider, Modal } from "antd";
+import { Button, Carousel, ConfigProvider, Modal } from "antd";
 import React, { FC } from "react";
 import cls from "./PostCommentModal.module.scss";
 import { HStack, Text, UserCard, VStack } from "@/shared/ui";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { UserComment } from "@/features/UserComment/ui/UserComment";
 import { PostCardFooter } from "@/entities/PostCard/ui/PostCardFooter/PostCardFooter";
+import { PostCardComments } from "@/entities/PostCard/ui/PostCardComments/PostCardComments";
+import AddComment from "@/features/AddComment/ui/AddComment";
 
 interface PostCommentModalProps {
   post: Post;
@@ -13,7 +15,6 @@ interface PostCommentModalProps {
   onOpen?: () => void;
   onClose?: () => void;
 }
-const onCloseModal = () => {};
 
 export const PostCommentModal: FC<PostCommentModalProps> = ({
   post,
@@ -40,11 +41,13 @@ export const PostCommentModal: FC<PostCommentModalProps> = ({
       >
         <HStack className={cls.modalContent}>
           <div className={cls.imgContent}>
-            {post.images.map((img) => (
-              <div key={img.public_id}>
-                <img className={cls.img} src={img.url} />
-              </div>
-            ))}
+            <Carousel draggable>
+              {post.images.map((img) => (
+                <div key={img.public_id}>
+                  <img className={cls.img} src={img.url} />
+                </div>
+              ))}
+            </Carousel>
           </div>
           <VStack className={cls.mainContent}>
             <div className={cls.mainContentWrap}>
@@ -75,6 +78,7 @@ export const PostCommentModal: FC<PostCommentModalProps> = ({
                 postCommentModal={false}
                 post={post}
               />
+              <PostCardComments post={post} />
             </div>
           </VStack>
         </HStack>

@@ -1,0 +1,37 @@
+.profilePosts {
+  display: flex;
+  gap: 5px;
+}
+
+.hr {
+  border: 1px solid rgb(231, 231, 231);
+  width: 100%;
+}
+.hr2 {
+  border: 1px solid red;
+  width: 40%;
+}
+.postMenu {
+}
+.postMenuBtns {
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+}
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 14px 9px;
+  background-color: var(--main-color);
+  border-top: 1px solid rgb(231, 231, 231);
+  position: relative;
+  cursor: pointer;
+  bottom: 0.5px;
+}
+.activeButton {
+  border-top: 2px solid black;
+}
+.text {
+}

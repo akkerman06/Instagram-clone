@@ -4,9 +4,9 @@
 .img {
   background-size: cover;
   background-position: center;
-  object-fit: cover;
+  object-fit: fill;
+  height: 500px;
   width: 100%;
-  height: auto;
 }
 .imgContent {
   height: auto;
@@ -46,3 +46,8 @@
   border-top: 1px grey solid;
   grid-area: postCardFooterBlock;
 }
+// .img {
+//   height: auto;
+//   height: 500px;
+//   width: 100%;
+// }

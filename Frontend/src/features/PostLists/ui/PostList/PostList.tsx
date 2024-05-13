@@ -1,16 +1,22 @@
 import {
+  Post,
   PostCard,
   PostCardSkeleton,
   getDataPosts,
   getPostsLoading,
 } from "@/entities/PostCard";
 import { Text, VStack } from "@/shared/ui";
-import React from "react";
+import { FC } from "react";
 import { useSelector } from "react-redux";
 
-export const PostList = () => {
-  const postsData = useSelector(getDataPosts);
-  const loading = useSelector(getPostsLoading);
+interface PostListProps {
+  postsData: Post[];
+  loading?: boolean;
+}
+
+export const PostList: FC<PostListProps> = ({ postsData, loading }) => {
+  // const postsData = useSelector(getDataPosts);
+  // const loading = useSelector(getPostsLoading);
 
   if (loading) {
     return (

@@ -1,18 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ProfileState } from "../types/profile";
 import { searchUsers } from "../service/searchUsers";
 import { getUserProfile } from "../service/getUserProfile";
 import { updateProfile } from "../service/updateProfile";
+import { getUserPosts } from "../service/getUserPosts";
+import { GetFetchPosts } from "@/pages/HomePage/model/service/getFetchPosts";
+import { Post } from "@/entities/PostCard";
 
 const initialState: ProfileState = {
   posts: [],
+  lengthUserPosts: 0,
   users: [],
   user: null,
   loading: false,
+  loadingPosts: false,
   succes: "",
   error: "",
   searchUsers: [],
   searchLoading: false,
+  inited: false,
 };
 
 const profileSlice = createSlice({
@@ -25,6 +31,16 @@ const profileSlice = createSlice({
     setSearchUsers: (state) => {
       state.searchUsers = [];
     },
+    setUpdateProfilePost: (state, action: PayloadAction<Post>) => {
+      state.posts = state.posts.map((post) =>
+        post._id === action.payload._id ? action.payload : post
+      );
+    },
+
+    // setUserPosts: (state, action) => {
+    //   state.posts = action.payload;
+    // },
+
     setClearMessage: (state) => {
       state.error = "";
       state.succes = "";
@@ -46,7 +62,7 @@ const profileSlice = createSlice({
       .addCase(searchUsers.rejected, (state) => {
         state.searchLoading = false;
       })
-
+      //------------------------------------------------------------------
       .addCase(getUserProfile.pending, (state, action) => {
         state.loading = true;
       })
@@ -54,6 +70,23 @@ const profileSlice = createSlice({
         state.loading = false;
         state.users = [...state.users, action.payload.user];
       })
+      //------------------------------------------------------------------
+      .addCase(getUserPosts.pending, (state) => {
+        state.loadingPosts = true;
+      })
+      .addCase(
+        getUserPosts.fulfilled,
+        (state, action: PayloadAction<GetFetchPosts>) => {
+          state.loadingPosts = false;
+          state.posts = action.payload.posts;
+          state.lengthUserPosts = action.payload.result;
+          state.inited = true;
+        }
+      )
+      .addCase(getUserPosts.rejected, (state) => {
+        state.loadingPosts = false;
+      })
+      //------------------------------------------------------------------
       .addCase(updateProfile.pending, (state, action) => {
         (state.error = ""), (state.succes = "");
       })

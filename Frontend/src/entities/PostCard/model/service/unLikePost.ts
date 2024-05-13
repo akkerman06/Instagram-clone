@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Post } from "../types/post";
 import { User } from "@/entities/User/model/types/user";
 import { postActions } from "../slice/postSlcie";
+import { profileActions } from "@/entities/Profile";
 
 interface LikePostParams {
   post: Post;
@@ -23,6 +24,7 @@ export const unLikePost = createAsyncThunk<
     likes: post.likes.filter((item) => item._id !== auth._id),
   };
   dispatch(postActions.setUpdatePost(newPost));
+  dispatch(profileActions.setUpdateProfilePost(newPost));
   try {
     await extra.api.patch(`/post/${post._id}/unLike`);
   } catch (e) {
