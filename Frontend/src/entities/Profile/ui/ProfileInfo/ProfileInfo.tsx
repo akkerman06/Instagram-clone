@@ -1,4 +1,4 @@
-import { getAuthData } from "@/entities/User";
+import { getAuthData, getUserLoading } from "@/entities/User";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { FC, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -21,6 +21,7 @@ import { getUserPosts } from "../../model/service/getUserPosts";
 import { getProfilePosts } from "../../model/selectors/getUserPosts";
 import { getUserPostInited } from "../../model/selectors/getUserPostInited";
 import { ProfilePosts } from "@/features/ProfilePosts/ui/ProfilePosts";
+import { getUserPostLoading } from "../../model/selectors/getUserPostLoading";
 
 interface ProfileInfoProps {
   id: string;
@@ -31,7 +32,8 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
   const authData = useSelector(getAuthData);
   const profileLoading = useSelector(getProfileUserLoading);
   const profilePosts = useSelector(getProfilePosts);
-  const profilePostInited = useSelector(getUserPostInited);
+  // const profilePostInited = useSelector(getUserPostInited);
+  const profilePostsLoading = useSelector(getUserPostLoading);
   const dispatch = useAppDispatch();
   const user = useSelector(getProfileUser);
   const dropDownDotsItems = useProfile(authData._id === id);
@@ -163,13 +165,13 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
                 <Text color="black" size={18} weight={900}>
                   {user.fullname}
                 </Text>
-                {/* <Text size={14} weight={400}>
+                <Text size={14} weight={400}>
                   {user.mobile}
                 </Text>
                 <Text size={18} weight={400}>
                   {user.address}
                 </Text>
-                <Text size={18} weight={400}>
+                {/* <Text size={18} weight={400}>
                   <a href={user.website} target="_blank">
                     {user.website}
                   </a>
@@ -178,7 +180,7 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ id, users }) => {
             </VStack>
           </HStack>
 
-          <ProfilePosts />
+          <ProfilePosts postsLoading={profilePostsLoading} />
         </VStack>
       )}
     </HStack>

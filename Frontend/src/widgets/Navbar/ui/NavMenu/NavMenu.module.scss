@@ -1,12 +1,11 @@
 .nav {
-    .list {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-    }
+  .list {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
 }
-  
-  
-.dark{
+
+.dark {
   filter: invert(100%);
 }

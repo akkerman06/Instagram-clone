@@ -24,7 +24,6 @@ export const PostCommentModal: FC<PostCommentModalProps> = ({
 }) => {
   const { user } = post;
   const { comments } = post;
-  console.log(post);
   return (
     <div>
       <Modal
@@ -43,9 +42,7 @@ export const PostCommentModal: FC<PostCommentModalProps> = ({
           <div className={cls.imgContent}>
             <Carousel draggable>
               {post.images.map((img) => (
-                <div key={img.public_id}>
-                  <img className={cls.img} src={img.url} />
-                </div>
+                <img key={img.public_id} className={cls.img} src={img.url} />
               ))}
             </Carousel>
           </div>
@@ -64,6 +61,7 @@ export const PostCommentModal: FC<PostCommentModalProps> = ({
               <VStack className={cls.postUserComments}>
                 {comments.map((comment: any) => (
                   <UserComment
+                    key={comment.user._id}
                     userId={comment.user._id}
                     img={comment.user.avatar}
                     username={comment.user.username}

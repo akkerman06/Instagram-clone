@@ -6,7 +6,7 @@ type DirectionType = "row" | "column";
 type JustifyType = "center" | "end" | "start" | "between";
 type AlignType = "center" | "end" | "start";
 type WrapType = "wrap" | "nowrap";
-type GapType = 0 | 4 | 8 | 12 | 16 | 18 | 22 | 26 | 28 | 32 | 36 | 40;
+type GapType = 0 | 4 | 8 | 12 | 16 | 18 | 22 | 26 | 28 | 32 | 36 | 40 | 70;
 
 export interface FlexProps {
   children: ReactNode;
@@ -69,6 +69,7 @@ const Flex: FC<FlexProps> = (props) => {
     32: cls.gap32,
     36: cls.gap36,
     40: cls.gap40,
+    70: cls.gap70,
   };
 
   const mods: Mods = {

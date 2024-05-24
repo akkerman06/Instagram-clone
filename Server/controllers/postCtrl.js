@@ -55,6 +55,7 @@ const postCtrl = {
       const posts = await features.query
         .sort("-createdAt")
         .populate("user likes", "avatar username fullname followers")
+        .populate("user saves", "avatar username")
         .populate({
           path: "comments",
           populate: {
@@ -62,8 +63,6 @@ const postCtrl = {
             select: "-password",
           },
         });
-      //   console.log(posts);
-
       res.json({
         msg: "Success!",
         result: posts.length,
@@ -165,7 +164,6 @@ const postCtrl = {
             select: "-password",
           },
         });
-      console.log(posts);
 
       res.json({
         posts,
@@ -252,6 +250,13 @@ const postCtrl = {
         },
         { new: true }
       );
+      const updatePost = await Posts.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $push: { saves: req.user._id },
+        },
+        { new: true }
+      );
 
       if (!save)
         return res.status(400).json({ msg: "This user does not exist." });
@@ -267,6 +272,13 @@ const postCtrl = {
         { _id: req.user._id },
         {
           $pull: { saved: req.params.id },
+        },
+        { new: true }
+      );
+      const unSavePost = await Posts.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $pull: { saves: req.user._id },
         },
         { new: true }
       );

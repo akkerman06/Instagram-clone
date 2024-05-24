@@ -5,24 +5,24 @@ import { User } from "@/entities/User/model/types/user";
 import { postActions } from "../slice/postSlcie";
 import { profileActions } from "@/entities/Profile";
 
-interface LikePostParams {
+interface SavePostParams {
   post: Post;
   auth: User;
 }
 
-export const likePost = createAsyncThunk<
+export const savePost = createAsyncThunk<
   any,
-  LikePostParams,
+  SavePostParams,
   ThunkConfig<string>
->("post/like", async (params, thunkApi) => {
+>("post/save", async (params, thunkApi) => {
   const { extra, rejectWithValue, dispatch } = thunkApi;
   const { post, auth } = params;
-  const newPost = { ...post, likes: [...post.likes, auth] };
+  const newPost = { ...post, saves: [...post.saves, auth] };
   dispatch(postActions.setUpdatePost(newPost));
   dispatch(profileActions.setUpdateProfilePost(newPost));
 
   try {
-    await extra.api.patch(`/post/${post._id}/like`);
+    await extra.api.patch(`/savePost/${post._id}`);
   } catch (e) {
     return rejectWithValue(e.responce.data.msg);
   }

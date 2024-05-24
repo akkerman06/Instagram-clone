@@ -1,54 +1,57 @@
 import { Icon } from "@/shared/ui";
 import { FC, useEffect, useState } from "react";
-import cls from "./LikeBtn.module.scss";
+import cls from "./SaveBtn.module.scss";
 import { Post, likePost, unLikePost } from "@/entities/PostCard";
 import { useSelector } from "react-redux";
 import { getAuthData } from "@/entities/User";
 import { PostProps } from "@/entities/PostCard/model/types/post";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { ClassNames, Mods } from "@/shared/lib/classNames";
+import { savePost } from "@/entities/PostCard/model/service/savePost";
+import { UnSavePost } from "@/entities/PostCard/model/service/unSavePost";
 
-export const LikeBtn: FC<PostProps> = ({ post }) => {
-  const [isLike, setIsLike] = useState(false);
+export const SaveBtn: FC<PostProps> = ({ post }) => {
+  const [isSave, setIsSave] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
   const authData = useSelector(getAuthData);
   const dispatch = useAppDispatch();
 
-  const onIsLike = async () => {
+  const onIsSave = async () => {
     if (isLoad) return;
     setIsLoad(true);
-    await dispatch(likePost({ post, auth: authData }));
+    await dispatch(savePost({ post, auth: authData }));
     setIsLoad(false);
   };
-  const onUnLike = async () => {
+  const unIsSave = async () => {
     if (isLoad) return;
     setIsLoad(true);
-    await dispatch(unLikePost({ post, auth: authData }));
+    await dispatch(UnSavePost({ post, auth: authData }));
     setIsLoad(false);
   };
   useEffect(() => {
-    if (post.likes.find((item) => item._id === authData._id)) {
-      setIsLike(true);
+    if (post.saves.find((item) => item._id === authData._id)) {
+      setIsSave(true);
     }
-    return () => setIsLike(false);
-  }, [post.likes, authData._id]);
+
+    return () => setIsSave(false);
+  }, [post.saves, authData._id]);
 
   const mods: Mods = {
     [cls.disabled]: isLoad,
   };
   return (
     <>
-      {isLike ? (
+      {isSave ? (
         <Icon
-          type="FavoriteRed"
-          className={ClassNames(cls.like, mods, [])}
-          onClick={onUnLike}
+          type="UnSave"
+          className={ClassNames(cls.unSave, mods, [])}
+          onClick={unIsSave}
         />
       ) : (
         <Icon
-          type="Favorite"
-          className={ClassNames(cls.unlike, mods, [])}
-          onClick={onIsLike}
+          type="Save"
+          className={ClassNames(cls.save, mods, [])}
+          onClick={onIsSave}
         />
       )}
     </>

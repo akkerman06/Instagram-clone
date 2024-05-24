@@ -29,10 +29,14 @@ export const UserCard: FC<UserCardProps> = memo((props) => {
     "150": cls.size150,
   };
   return (
-    <HStack justify="between" align="center">
+    <HStack
+      className={ClassNames("", {}, [className])}
+      justify="center"
+      align="center"
+    >
       <HStack
         gap={16}
-        className={ClassNames(cls.userCard, {}, [className, sizeClasses[size]])}
+        className={ClassNames(cls.userCard, {}, [sizeClasses[size]])}
         onClick={onclick}
         align="center"
       >
@@ -44,8 +48,8 @@ export const UserCard: FC<UserCardProps> = memo((props) => {
           </Text>
           {content && <Text tag="span">{content}</Text>}
         </VStack>
-        {children}
       </HStack>
+      {children}
     </HStack>
   );
 });

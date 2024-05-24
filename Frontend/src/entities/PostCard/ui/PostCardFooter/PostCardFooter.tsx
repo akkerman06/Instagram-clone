@@ -6,6 +6,7 @@ import { LikeBtn } from "@/features/LikeBtn/LikeBtn";
 import { useSelector } from "react-redux";
 import { PostCommentModal } from "@/features/PostCommentModal/ui/PostCommentModal";
 import { ClassNames } from "@/shared/lib/classNames";
+import { SaveBtn } from "@/features/SaveBtn/SaveBtn";
 
 interface PostCardFooterProps {
   post: Post;
@@ -34,7 +35,7 @@ export const PostCardFooter: FC<PostCardFooterProps> = ({
           <Icon className={cls.postIcon} type="SharePosts" />
         </HStack>
 
-        <Icon className={cls.postIcon} type="Save" />
+        <SaveBtn post={post} />
       </HStack>
 
       <VStack className={cls.body}>

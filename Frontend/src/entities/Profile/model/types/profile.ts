@@ -9,6 +9,7 @@ export interface ProfileState {
   succes: string;
   loading: boolean;
   searchUsers: User[];
+  suggestionsUsers: User[];
   searchLoading: boolean;
   inited: boolean;
   loadingPosts: boolean;

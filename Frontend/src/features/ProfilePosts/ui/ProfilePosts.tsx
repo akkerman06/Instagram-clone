@@ -1,15 +1,20 @@
-import { AppLink, HStack, Text, VStack } from "@/shared/ui";
+import { HStack, Text, VStack } from "@/shared/ui";
 import cls from "./ProfilePosts.module.scss";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { ClassNames } from "@/shared/lib/classNames";
 import { getProfilePosts } from "@/entities/Profile/model/selectors/getUserPosts";
-import { PostCommentModal } from "@/features/PostCommentModal/ui/PostCommentModal";
 import { PostImage } from "@/features/PostImage/ui/PostImage";
-export const ProfilePosts = () => {
+import PostImageSkeleton from "@/features/PostImage/ui/PostImageSkeleton";
+
+interface ProfilePostsProps {
+  postsLoading: boolean;
+}
+
+export const ProfilePosts: FC<ProfilePostsProps> = ({ postsLoading }) => {
   const profilePosts = useSelector(getProfilePosts);
-  const buttons = ["ПУБЛИКАЦИИ", "СОХРАНЕННЫЕ", "REELS"];
-  const [posts, setPosts] = useState("ПУБЛИКАЦИИ");
+  const buttons = ["ПУБЛИКАЦИИ", "REELS"];
+  const [postsFilter, setPostsFilter] = useState("ПУБЛИКАЦИИ");
 
   return (
     <VStack>
@@ -21,9 +26,9 @@ export const ProfilePosts = () => {
         <HStack className={cls.postMenuBtns}>
           {buttons.map((item) => (
             <button
-              onClick={() => setPosts(item)}
+              onClick={() => setPostsFilter(item)}
               className={ClassNames(cls.button, {}, [
-                posts === item ? cls.activeButton : null,
+                postsFilter === item ? cls.activeButton : null,
               ])}
             >
               <Text className={cls.text} weight={900}>
@@ -34,6 +39,7 @@ export const ProfilePosts = () => {
         </HStack>
       </VStack>
       <HStack className={cls.profilePosts}>
+        {postsLoading && <PostImageSkeleton />}
         {profilePosts.map((post) => (
           <PostImage post={post} />
         ))}

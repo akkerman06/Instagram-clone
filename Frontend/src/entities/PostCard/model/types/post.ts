@@ -7,6 +7,7 @@ export interface Post {
   createdAt: string;
   images: ImageUpload[];
   likes: User[];
+  saves: User[];
   updatedAt: string;
   user: User;
   __v: number;

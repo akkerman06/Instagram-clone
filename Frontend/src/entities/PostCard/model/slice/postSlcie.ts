@@ -4,7 +4,6 @@ import {
   GetFetchPosts,
   getFetchPosts,
 } from "@/pages/HomePage/model/service/getFetchPosts";
-import { PostComment } from "../types/comment";
 
 export const initialState: PostState = {
   loading: false,

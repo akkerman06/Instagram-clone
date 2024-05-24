@@ -44,10 +44,10 @@ export const NavMenu = () => {
       href: "/register",
       iconType: "FindPeople",
     },
-    {
-      href: "/",
-      iconType: "Favorite",
-    },
+    // {
+    //   href: "/",
+    //   iconType: "Save",
+    // },
   ];
 
   const dropDownItems: MenuProps["items"] = [
@@ -64,7 +64,11 @@ export const NavMenu = () => {
       key: "1",
     },
     {
-      label: <Text color="black">Сменить тему</Text>,
+      label: (
+        <AppLink to={"/"}>
+          <Text color="black">Сохраненные</Text>
+        </AppLink>
+      ),
       key: "2",
     },
     {
@@ -84,7 +88,7 @@ export const NavMenu = () => {
           <li key={item.iconType} className={ClassNames(cls.item, {}, [])}>
             {item.href ? (
               <Link to={item.href} className={cls.link}>
-                <Icon type={item.iconType} />
+                <Icon className={cls.icon} type={item.iconType} />
               </Link>
             ) : (
               <Icon type={item.iconType} onClick={item.onClick} />

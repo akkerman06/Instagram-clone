@@ -9,9 +9,7 @@ interface LikePostParams {
   post: Post;
   auth: User;
 }
-interface GetParamsCreatePost {
-  newPost: Post;
-}
+
 export const unLikePost = createAsyncThunk<
   any,
   LikePostParams,

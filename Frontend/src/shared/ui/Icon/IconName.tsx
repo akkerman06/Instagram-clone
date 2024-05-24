@@ -13,6 +13,7 @@ import Comment from "@/shared/assets/svg/Comment.svg";
 import Save from "@/shared/assets/svg/Save.svg";
 import SharePosts from "@/shared/assets/svg/SharePosts.svg";
 import Smile from "@/shared/assets/svg/Smile.svg";
+import UnSave from "@/shared/assets/svg/UnSave.svg";
 
 export type IconType =
   | "Home"
@@ -29,7 +30,8 @@ export type IconType =
   | "Comment"
   | "Save"
   | "SharePosts"
-  | "Smile";
+  | "Smile"
+  | "UnSave";
 
 export const iconName: Record<IconType, JSX.Element> = {
   Home: <Home />,
@@ -47,4 +49,5 @@ export const iconName: Record<IconType, JSX.Element> = {
   Save: <Save />,
   SharePosts: <SharePosts />,
   Smile: <Smile />,
+  UnSave: <UnSave />,
 };

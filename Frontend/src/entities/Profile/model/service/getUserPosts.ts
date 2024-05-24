@@ -11,7 +11,6 @@ export const getUserPosts = createAsyncThunk<
 
   try {
     const res = await extra.api.get(`/user_posts/${id}`);
-    console.log(res);
     return res.data;
   } catch (err: any) {
     return rejectWithValue(err.response.data.msg);

@@ -17,6 +17,7 @@ const initialState: ProfileState = {
   succes: "",
   error: "",
   searchUsers: [],
+  suggestionsUsers: [],
   searchLoading: false,
   inited: false,
 };
@@ -36,11 +37,9 @@ const profileSlice = createSlice({
         post._id === action.payload._id ? action.payload : post
       );
     },
-
     // setUserPosts: (state, action) => {
     //   state.posts = action.payload;
     // },
-
     setClearMessage: (state) => {
       state.error = "";
       state.succes = "";
@@ -49,6 +48,9 @@ const profileSlice = createSlice({
       state.users = state.users.map((user) =>
         user._id === action.payload._id ? action.payload : user
       );
+    },
+    setSuggestionsUsers: (state, action) => {
+      state.suggestionsUsers = action.payload;
     },
   },
   extraReducers(builder) {
