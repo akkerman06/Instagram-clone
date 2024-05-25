@@ -41,7 +41,7 @@ export const ProfilePosts: FC<ProfilePostsProps> = ({ postsLoading }) => {
       <HStack className={cls.profilePosts}>
         {postsLoading && <PostImageSkeleton />}
         {profilePosts.map((post) => (
-          <PostImage post={post} />
+          <PostImage key={post._id} post={post} />
         ))}
       </HStack>
     </VStack>

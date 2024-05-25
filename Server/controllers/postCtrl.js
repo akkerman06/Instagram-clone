@@ -300,11 +300,20 @@ const postCtrl = {
         req.query
       ).paginating();
 
-      const savePosts = await features.query.sort("-createdAt");
+      const savedPosts = await features.query
+        .sort("-createdAt")
+        .populate({
+          path: "comments",
+          populate: {
+            path: "user likes",
+            select: "-password",
+          },
+        })
+        .populate("user saves", "avatar username fullname");
 
       res.json({
-        savePosts,
-        result: savePosts.length,
+        savedPosts,
+        result: savedPosts.length,
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });

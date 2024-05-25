@@ -9,6 +9,7 @@ import {
   ProfileLazyPage,
   RegisterLazyPage,
 } from "@/pages";
+import SavedPostsPage from "@/pages/SavedPostsPage/ui/SavedPostsPage";
 
 const RouteProvider = () => {
   return (
@@ -17,6 +18,7 @@ const RouteProvider = () => {
         <Route path="/" element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile/:id" element={<ProfileLazyPage />} />
+          <Route path="/getSavePosts" element={<SavedPostsPage />} />
         </Route>
 
         <Route path="/" element={<AuthLayout />}>

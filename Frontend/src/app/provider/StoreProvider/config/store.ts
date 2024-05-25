@@ -6,6 +6,7 @@ import { $api } from "@/shared/api";
 import { profileReducer } from "@/entities/Profile";
 import { addPostModalReducer } from "@/features/AddPostModal";
 import { postReducer } from "@/entities/PostCard";
+import { savedPostsReducer } from "@/pages/SavedPostsPage/model/slice/savedPosts";
 
 export const createStore = () => {
   const rootReducer: ReducersMapObject<StateSchema> = {
@@ -14,6 +15,7 @@ export const createStore = () => {
     profile: profileReducer,
     addPostModal: addPostModalReducer,
     post: postReducer,
+    savedPosts: savedPostsReducer,
   };
 
   const extraArg: ThunkExtraArg = {

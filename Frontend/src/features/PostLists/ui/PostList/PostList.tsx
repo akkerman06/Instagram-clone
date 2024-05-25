@@ -7,7 +7,6 @@ import {
 } from "@/entities/PostCard";
 import { Text, VStack } from "@/shared/ui";
 import { FC } from "react";
-import { useSelector } from "react-redux";
 
 interface PostListProps {
   postsData: Post[];
@@ -15,9 +14,6 @@ interface PostListProps {
 }
 
 export const PostList: FC<PostListProps> = ({ postsData, loading }) => {
-  // const postsData = useSelector(getDataPosts);
-  // const loading = useSelector(getPostsLoading);
-
   if (loading) {
     return (
       <VStack gap={22}>

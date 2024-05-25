@@ -65,7 +65,7 @@ export const NavMenu = () => {
     },
     {
       label: (
-        <AppLink to={"/"}>
+        <AppLink to={"/getSavePosts"}>
           <Text color="black">Сохраненные</Text>
         </AppLink>
       ),

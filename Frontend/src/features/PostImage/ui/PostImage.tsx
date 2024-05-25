@@ -4,10 +4,9 @@ import cls from "./PostImage.module.scss";
 import { PostCommentModal } from "@/features/PostCommentModal/ui/PostCommentModal";
 interface PostImageProps {
   post: Post;
-  image?: string;
 }
 
-export const PostImage: FC<PostImageProps> = ({ post, image }) => {
+export const PostImage: FC<PostImageProps> = ({ post }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onOpen = () => {

@@ -1,8 +1,10 @@
 import { ThunkConfig } from "@/app/provider";
 import { Post, postActions } from "@/entities/PostCard";
+import { savePost } from "@/entities/PostCard/model/service/savePost";
 import { PostComment } from "@/entities/PostCard/model/types/comment";
 import { profileActions } from "@/entities/Profile";
 import { User } from "@/entities/User/model/types/user";
+import { savedPostsActions } from "@/pages/SavedPostsPage/model/slice/savedPosts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 interface CreateCommentParams {
@@ -39,8 +41,11 @@ export const createComment = createAsyncThunk<
   dispatch(postActions.setUpdatePost(newPost));
   // @ts-ignore
   dispatch(profileActions.setUpdateProfilePost(newPost));
+  // @ts-ignore
+  dispatch(savedPostsActions.setUpdatePost(newPost));
 
   try {
+    1;
     await extra.api.post<GetParamsCreateComment>("/comment", {
       postId,
       content,
