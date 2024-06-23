@@ -8,7 +8,7 @@ interface InputProps
   extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   className?: string;
   error?: string;
-  value: string;
+  value?: string;
   textarea?: boolean;
   variant?: VariantInput;
 }

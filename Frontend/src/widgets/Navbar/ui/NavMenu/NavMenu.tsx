@@ -2,7 +2,7 @@ import { INavMenuItem } from "../../model/consts/NavMenu";
 import { Icon } from "@/shared/ui/Icon/Icon";
 import cls from "./NavMenu.module.scss";
 import { Avatar } from "@/shared/ui/Avatar/Avatar";
-import { useCallback, useContext } from "react";
+import { useState } from "react";
 import { AddPostModal, SwitchButton } from "@/features";
 import { ClassNames } from "@/shared/lib/classNames";
 import { Link } from "react-router-dom";
@@ -13,20 +13,15 @@ import { AppLink, Text } from "@/shared/ui";
 import { useSelector } from "react-redux";
 import { getAuthData, logout } from "@/entities/User";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
-import {
-  addPostModalActions,
-  getAddPostModalOpen,
-} from "@/features/AddPostModal";
-
 export const NavMenu = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const authData = useSelector(getAuthData);
 
   const dispatch = useAppDispatch();
 
-  const isOpenAddPostModal = useSelector(getAddPostModalOpen);
-  const onCloseAddPostModal = useCallback(() => {
-    dispatch(addPostModalActions.setIsAddPostModal(false));
-  }, []);
+  const onClose = () => {
+    setIsOpenModal(false);
+  };
   const navMenuItems: INavMenuItem[] = [
     {
       href: "/",
@@ -38,7 +33,7 @@ export const NavMenu = () => {
     },
     {
       iconType: "NewPosts",
-      onClick: () => dispatch(addPostModalActions.setIsAddPostModal(true)),
+      onClick: () => setIsOpenModal(true),
     },
     {
       href: "/register",
@@ -95,10 +90,7 @@ export const NavMenu = () => {
             )}
           </li>
         ))}
-        <AddPostModal
-          isOpen={isOpenAddPostModal}
-          onClose={onCloseAddPostModal}
-        />
+        <AddPostModal isOpen={isOpenModal} onClose={onClose} />
         <li>
           <SwitchButton />
         </li>

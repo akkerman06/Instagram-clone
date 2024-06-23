@@ -24,6 +24,7 @@ export const useAddModalFormSchema = () => {
     watch,
     reset,
     handleSubmit,
+    setValue,
     formState: { isValid, errors, isSubmitting },
   } = useForm<Partial<AddModalFormValues>>({
     mode: "onChange",
@@ -37,6 +38,7 @@ export const useAddModalFormSchema = () => {
     register,
     watch,
     reset,
+    setValue,
     handleSubmit,
     isValid,
     errors,

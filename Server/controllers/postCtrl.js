@@ -309,7 +309,7 @@ const postCtrl = {
             select: "-password",
           },
         })
-        .populate("user saves", "avatar username fullname");
+        .populate("user saves", "avatar username fullnamecd");
 
       res.json({
         savedPosts,

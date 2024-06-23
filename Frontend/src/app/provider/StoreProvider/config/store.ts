@@ -4,7 +4,6 @@ import { authReducer } from "@/features/auth";
 import { userReducer } from "@/entities/User";
 import { $api } from "@/shared/api";
 import { profileReducer } from "@/entities/Profile";
-import { addPostModalReducer } from "@/features/AddPostModal";
 import { postReducer } from "@/entities/PostCard";
 import { savedPostsReducer } from "@/pages/SavedPostsPage/model/slice/savedPosts";
 
@@ -13,7 +12,6 @@ export const createStore = () => {
     auth: authReducer,
     user: userReducer,
     profile: profileReducer,
-    addPostModal: addPostModalReducer,
     post: postReducer,
     savedPosts: savedPostsReducer,
   };

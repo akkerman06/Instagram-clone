@@ -24,6 +24,9 @@ const postSlice = createSlice({
         post._id === action.payload._id ? action.payload : post
       );
     },
+    setDeletePost: (state, action: PayloadAction<string>) => {
+      state.posts = state.posts.filter((post) => post._id !== action.payload);
+    },
   },
 
   extraReducers(builder) {

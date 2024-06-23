@@ -56,6 +56,7 @@ interface TextProps {
   tag?: TextTag;
   line?: TextLine;
   clickable?: boolean;
+  onClick?: () => void;
 }
 
 export const Text: FC<TextProps> = (props) => {
@@ -69,6 +70,7 @@ export const Text: FC<TextProps> = (props) => {
     tag = "h1",
     line = "",
     clickable = false,
+    onClick,
   } = props;
   const classes = [
     size && sizeClasses[size],
@@ -85,5 +87,9 @@ export const Text: FC<TextProps> = (props) => {
     [cls.dark]: theme === Theme.DARK,
   };
   const Tag = tag;
-  return <Tag className={ClassNames(cls.text, mods, classes)}>{children}</Tag>;
+  return (
+    <Tag onClick={onClick} className={ClassNames(cls.text, mods, classes)}>
+      {children}
+    </Tag>
+  );
 };

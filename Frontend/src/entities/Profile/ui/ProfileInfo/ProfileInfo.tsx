@@ -1,11 +1,11 @@
-import { getAuthData, getUserLoading } from "@/entities/User";
+import { getAuthData } from "@/entities/User";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { profileActions } from "../../model/slice/profileSlice";
 import { getProfileUser } from "../../model/selectors/getProfileUser";
 import { HStack, Spinner, Text, VStack } from "@/shared/ui";
-import { Avatar, Button, Modal } from "antd";
+import { Avatar, Button, Modal, Spin } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 import cls from "./ProfileInfo.module.scss";
 import { useProfile } from "../../model/consts/useProfile";
@@ -19,7 +19,6 @@ import { useProfileModal } from "../../model/hooks/useProfileModal";
 import { FollowEnum } from "../../model/types/profile";
 import { getUserPosts } from "../../model/service/getUserPosts";
 import { getProfilePosts } from "../../model/selectors/getUserPosts";
-import { getUserPostInited } from "../../model/selectors/getUserPostInited";
 import { ProfilePosts } from "@/features/ProfilePosts/ui/ProfilePosts";
 import { getUserPostLoading } from "../../model/selectors/getUserPostLoading";
 

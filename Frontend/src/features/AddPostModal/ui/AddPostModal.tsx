@@ -12,8 +12,8 @@ import { checkImages } from "@/shared/lib/checkImages";
 import { useAppDispatch } from "@/shared/hooks/useAppDispatch";
 import { createPost } from "@/entities/PostCard";
 interface AddPostModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 export const AddPostModal: FC<AddPostModalProps> = ({ isOpen, onClose }) => {
@@ -47,7 +47,6 @@ export const AddPostModal: FC<AddPostModalProps> = ({ isOpen, onClose }) => {
     setImages([]);
     reset();
     onClose();
-    console.log(data);
   };
   return (
     <Modal
