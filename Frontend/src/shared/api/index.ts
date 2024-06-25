@@ -4,8 +4,7 @@ import { LOCAL_STORAGE_TOKEN } from "../consts/LocalStorage";
 const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
 
 export const $api = axios.create({
-  baseURL:
-    "instagram-clone-server-8iyy822x8-akkerman06s-projects.vercel.app/api",
+  baseURL: "http://localhost:5000/api",
   withCredentials: true,
   headers: {
     Accept: "application/json",
